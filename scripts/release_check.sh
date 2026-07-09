@@ -6,7 +6,7 @@ cd "$ROOT"
 
 echo "== Lumi Social Intelligence release check =="
 
-python3 -m compileall -q scripts tests 2>/dev/null || true
+python3 -m compileall -q scripts tests
 
 if command -v pytest >/dev/null 2>&1 && [ -d tests ]; then
   pytest -q

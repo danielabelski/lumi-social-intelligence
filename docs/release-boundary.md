@@ -1,26 +1,44 @@
 # Release Boundary
 
-This repository receives tested, curated updates from private development repositories.
+Lumi Social Intelligence is the public-facing release doorway for tested, curated updates from private development repositories.
 
 ## Private development repositories
 
-- Lumi Layered Memory
-- Nuances
-- Presence
-- Autoresearch
+Development happens in:
 
-## Promotion rule
+- **Lumi Layered Memory**
+- **Nuances**
+- **Presence**
+- **Autoresearch**
 
-Push development work to the private development repositories. Promote into Lumi Social Intelligence only when the update is tested, documented, and safe for a release candidate.
+## Public release repository
+
+Release candidates are promoted into:
+
+- **Lumi Social Intelligence**
+
+Promotion should happen only when the update is tested, documented, reviewed, and safe for public-facing distribution.
+
+## Product naming rule
+
+Public-facing documentation should refer to the product components by their product names:
+
+- **Lumi Layered Memory**
+- **Nuances**
+- **Presence**
+
+Avoid reducing the public story to internal folder names, module nicknames, or private harness language.
 
 ## Do not include
 
-- raw AutoResearch runs;
+This repository must not contain:
+
+- raw Autoresearch runs;
 - private memories or diaries;
 - chat logs;
-- credentials, tokens, API keys, passwords;
+- credentials, tokens, API keys, passwords, connection strings, or chat IDs;
 - local runtime state;
-- scheduler internals, cron/job IDs, queues, wrappers;
+- scheduler internals, cron/job IDs, queues, or wrappers;
 - private coordinates or personal identifiers;
 - unreviewed generated artifacts;
 - host-specific claims that have not been verified.
@@ -34,3 +52,15 @@ Every release candidate should pass:
 ```
 
 Before publication, also run a clean-checkout smoke test from the release archive.
+
+## Visibility rule
+
+The repository stays private until:
+
+- licensing is in place;
+- public docs are product-consistent;
+- release gates pass;
+- secret/privacy scans pass;
+- install artifacts are reviewed;
+- host compatibility claims are verified;
+- GitHub About metadata matches the public product story.
