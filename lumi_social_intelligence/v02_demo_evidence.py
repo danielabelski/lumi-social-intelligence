@@ -159,6 +159,62 @@ def build_v02_demo_side_by_side_report(receipt: dict[str, Any]) -> dict[str, Any
     }
 
 
+def build_v02_demo_side_by_side_markdown(report: dict[str, Any]) -> str:
+    """Render the side-by-side report as copy-pastable Markdown."""
+
+    if not isinstance(report, dict):
+        raise ValueError("side-by-side report must be a mapping")
+    columns = report.get("columns", [])
+    if not isinstance(columns, list) or len(columns) < 2:
+        raise ValueError("side-by-side report must contain two columns")
+
+    left = columns[0] if isinstance(columns[0], dict) else {}
+    right = columns[1] if isinstance(columns[1], dict) else {}
+    left_label = _markdown_cell(_text(left, "label") or "Observed")
+    right_label = _markdown_cell(_text(right, "label") or "Shadow-only")
+    left_items = left.get("items", []) if isinstance(left.get("items", []), list) else []
+    right_items = right.get("items", []) if isinstance(right.get("items", []), list) else []
+    row_count = max(len(left_items), len(right_items), 1)
+
+    lines = [
+        "# v0.2 Demo Side-by-Side Evidence",
+        "",
+        _text(report, "headline") or "Observed and shadow-only demo behavior are separated.",
+        "",
+        f"**Demo ID:** `{_markdown_inline(_text(report, 'demo_id'))}`",
+        f"**Status:** `{_markdown_inline(_text(report, 'status'))}`",
+        "",
+        f"| {left_label} | {right_label} |",
+        "|---|---|",
+    ]
+    for index in range(row_count):
+        left_value = left_items[index] if index < len(left_items) else ""
+        right_value = right_items[index] if index < len(right_items) else ""
+        lines.append(f"| {_markdown_cell(str(left_value))} | {_markdown_cell(str(right_value))} |")
+
+    live_claims = report.get("live_claims", {}) if isinstance(report.get("live_claims"), dict) else {}
+    safety = report.get("safety", {}) if isinstance(report.get("safety"), dict) else {}
+    lines.extend([
+        "",
+        "## Live claim boundary",
+        "",
+        "**Native outbound reaction delivery:** "
+        f"`{_markdown_inline(str(live_claims.get('native_outbound_reaction_delivery', 'unknown')))}`",
+        "",
+        "## Safety counters",
+        "",
+        f"- Canonical writes: `{_markdown_inline(str(safety.get('canonical_writes', 'unknown')))}`",
+        f"- Telegram reactions sent: `{_markdown_inline(str(safety.get('telegram_reactions_sent', 'unknown')))}`",
+    ])
+
+    blocked_reasons = report.get("blocked_reasons", [])
+    if isinstance(blocked_reasons, list) and blocked_reasons:
+        lines.extend(["", "## Blocked reasons", ""])
+        lines.extend(f"- {_markdown_cell(str(reason))}" for reason in blocked_reasons)
+
+    return "\n".join(lines) + "\n"
+
+
 def validate_v02_demo_receipt(receipt: dict[str, Any]) -> list[str]:
     """Return contract errors for a v0.2 demo receipt."""
 
@@ -282,6 +338,14 @@ def _reject_private_runtime_fields(value: Any, path: str = "fixture") -> None:
 def _text(source: dict[str, Any], key: str) -> str:
     value = source.get(key, "") if isinstance(source, dict) else ""
     return value.strip() if isinstance(value, str) else ""
+
+
+def _markdown_cell(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("|", "\\|").replace("\n", "<br>").strip()
+
+
+def _markdown_inline(value: str) -> str:
+    return value.replace("`", "\\`").strip()
 
 
 def _dedupe(items: list[str]) -> list[str]:

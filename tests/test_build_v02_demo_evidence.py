@@ -56,9 +56,22 @@ def test_build_v02_demo_side_by_side_report_is_public_safe():
     assert report['safety']['telegram_reactions_sent'] == 0
 
 
+def test_build_v02_demo_side_by_side_markdown_is_public_safe():
+    module = load_demo_module()
+    markdown = module.build_side_by_side_markdown()
+
+    assert markdown.startswith('# v0.2 Demo Side-by-Side Evidence')
+    assert '| Observed in this repo | Shadow-only / not yet claimed live |' in markdown
+    assert '| review card generated from synthetic context | native outbound emoji reaction delivery |' in markdown
+    assert '**Native outbound reaction delivery:** `not_claimed`' in markdown
+    assert 'Canonical writes: `0`' in markdown
+    assert 'Telegram reactions sent: `0`' in markdown
+
+
 def test_build_v02_demo_evidence_cli_writes_json_report(tmp_path):
     report_path = tmp_path / 'v02-demo-evidence.json'
     side_by_side_path = tmp_path / 'v02-demo-side-by-side.json'
+    markdown_path = tmp_path / 'v02-demo-side-by-side.md'
     result = subprocess.run(
         [
             'python3',
@@ -67,6 +80,8 @@ def test_build_v02_demo_evidence_cli_writes_json_report(tmp_path):
             str(report_path),
             '--side-by-side-report',
             str(side_by_side_path),
+            '--side-by-side-markdown',
+            str(markdown_path),
         ],
         cwd=ROOT,
         text=True,
@@ -77,7 +92,10 @@ def test_build_v02_demo_evidence_cli_writes_json_report(tmp_path):
     stdout_report = json.loads(result.stdout)
     file_report = json.loads(report_path.read_text(encoding='utf-8'))
     side_by_side_report = json.loads(side_by_side_path.read_text(encoding='utf-8'))
+    markdown = markdown_path.read_text(encoding='utf-8')
     assert stdout_report == file_report
     assert file_report['status'] == 'valid_v02_demo_receipt'
     assert side_by_side_report['status'] == 'ready_for_demo'
     assert side_by_side_report['live_claims']['native_outbound_reaction_delivery'] == 'not_claimed'
+    assert markdown.startswith('# v0.2 Demo Side-by-Side Evidence')
+    assert '| review card generated from synthetic context | native outbound emoji reaction delivery |' in markdown

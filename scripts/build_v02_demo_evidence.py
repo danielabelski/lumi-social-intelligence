@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
 
 from lumi_social_intelligence.v02_demo_evidence import (
     build_v02_demo_receipt,
+    build_v02_demo_side_by_side_markdown,
     build_v02_demo_side_by_side_report,
 )
 
@@ -68,6 +69,10 @@ def build_side_by_side_report() -> dict:
     return build_v02_demo_side_by_side_report(build_report())
 
 
+def build_side_by_side_markdown() -> str:
+    return build_v02_demo_side_by_side_markdown(build_side_by_side_report())
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build the Lumi v0.2 public-safe demo evidence receipt.")
     parser.add_argument("--report", type=Path, default=ROOT / "docs" / "demos" / "v0.2-demo-evidence.json")
@@ -76,17 +81,25 @@ def main(argv: list[str] | None = None) -> int:
         type=Path,
         default=ROOT / "docs" / "demos" / "v0.2-demo-side-by-side.json",
     )
+    parser.add_argument(
+        "--side-by-side-markdown",
+        type=Path,
+        default=ROOT / "docs" / "demos" / "v0.2-demo-side-by-side.md",
+    )
     args = parser.parse_args(argv)
 
     report = build_report()
     side_by_side_report = build_side_by_side_report()
+    side_by_side_markdown = build_v02_demo_side_by_side_markdown(side_by_side_report)
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.side_by_side_report.parent.mkdir(parents=True, exist_ok=True)
+    args.side_by_side_markdown.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     args.side_by_side_report.write_text(
         json.dumps(side_by_side_report, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+    args.side_by_side_markdown.write_text(side_by_side_markdown, encoding="utf-8")
     print(json.dumps(report, indent=2, ensure_ascii=False))
     return 0 if report["status"] == "valid_v02_demo_receipt" and side_by_side_report["status"] == "ready_for_demo" else 1
 

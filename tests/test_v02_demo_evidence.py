@@ -1,5 +1,6 @@
 from lumi_social_intelligence.v02_demo_evidence import (
     build_v02_demo_receipt,
+    build_v02_demo_side_by_side_markdown,
     build_v02_demo_side_by_side_report,
     validate_v02_demo_receipt,
 )
@@ -118,6 +119,53 @@ def test_v02_demo_side_by_side_report_keeps_observed_and_shadow_claims_apart():
     assert report['headline'] == 'Observed demo receipt is separate from shadow-only Telegram delivery.'
     assert report['safety']['canonical_writes'] == 0
     assert report['safety']['telegram_reactions_sent'] == 0
+
+
+def test_v02_demo_side_by_side_markdown_renders_copy_pastable_table():
+    report = {
+        'schema': 'lumi.v02.demo_side_by_side_report.v1',
+        'demo_id': 'synthetic-v02-live-proof-001',
+        'status': 'ready_for_demo',
+        'headline': 'Observed demo receipt is separate from shadow-only Telegram delivery.',
+        'columns': [
+            {'label': 'Observed in this repo', 'items': ['review card generated from synthetic context']},
+            {'label': 'Shadow-only / not yet claimed live', 'items': ['native outbound emoji reaction delivery']},
+        ],
+        'live_claims': {'native_outbound_reaction_delivery': 'not_claimed'},
+        'safety': {'canonical_writes': 0, 'telegram_reactions_sent': 0},
+        'blocked_reasons': [],
+    }
+
+    markdown = build_v02_demo_side_by_side_markdown(report)
+
+    assert markdown.startswith('# v0.2 Demo Side-by-Side Evidence')
+    assert '| Observed in this repo | Shadow-only / not yet claimed live |' in markdown
+    assert '| review card generated from synthetic context | native outbound emoji reaction delivery |' in markdown
+    assert '**Native outbound reaction delivery:** `not_claimed`' in markdown
+    assert 'Canonical writes: `0`' in markdown
+    assert 'Telegram reactions sent: `0`' in markdown
+    assert 'blocked' not in markdown.lower()
+
+
+def test_v02_demo_side_by_side_markdown_escapes_table_pipes():
+    report = {
+        'schema': 'lumi.v02.demo_side_by_side_report.v1',
+        'demo_id': 'pipe-safe',
+        'status': 'ready_for_demo',
+        'headline': 'Pipe safety.',
+        'columns': [
+            {'label': 'Observed | repo', 'items': ['review | card']},
+            {'label': 'Shadow | only', 'items': ['native | reaction']},
+        ],
+        'live_claims': {'native_outbound_reaction_delivery': 'not_claimed'},
+        'safety': {'canonical_writes': 0, 'telegram_reactions_sent': 0},
+        'blocked_reasons': [],
+    }
+
+    markdown = build_v02_demo_side_by_side_markdown(report)
+
+    assert 'Observed \\| repo' in markdown
+    assert 'review \\| card' in markdown
 
 
 def test_v02_demo_receipt_fails_closed_when_live_claim_has_no_observation():
