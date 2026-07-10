@@ -69,7 +69,7 @@ Private repo passes release gate
 
 That release discipline is part of the story. Lumi Social Intelligence is not just about making agents polite. It is about making social adaptation testable. The project uses synthetic fixtures instead of private chat logs, anti-pattern tests instead of vibes, public/secret scans instead of hope, and fail-closed gates instead of uncontrolled live autonomy.
 
-The early release target is **0.1.0: installable Hermes preview**. The distribution names are:
+The first release target, **0.1.0: installable Hermes preview**, has been cut as a private, review-gated preview release. The distribution names are:
 
 ```text
 lumi-layered-memory
@@ -99,4 +99,4 @@ A nuance layer that stays humble.
 
 A presence layer that knows when not to act.
 
-And a release doorway clean enough to ship without betraying the private work that taught the system why those boundaries matter.
+And a release doorway clean enough to ship without betraying the private work that taught the system why those boundaries matter. The next job is not to add more mythology; it is to show the product working through a real, evidence-backed demo and decide what deserves the `v0.2` release label.

@@ -1,8 +1,8 @@
 # Article Plan for NotebookLM
 
-Before running the 0.1.0 implementation sprints, prepare three full-length articles that explain Lumi Social Intelligence from three different angles: product introduction, technical architecture, and creation story.
+Maintain three full-length articles that explain Lumi Social Intelligence from three different angles: product introduction, technical architecture, and creation story.
 
-These articles are source material for NotebookLM and should be written as substantial, coherent essays rather than marketing snippets.
+These articles are source material for NotebookLM and Word handoff. They should be substantial, coherent essays rather than marketing snippets, and should now reflect that `v0.1.0` has been released as a private, review-gated Hermes preview while `v0.2` is the live-demo/productization path.
 
 ## Shared positioning
 
@@ -34,7 +34,7 @@ Public-facing products:
 - **Nuances**
 - **Presence**
 
-0.1.0 Python package/distribution names:
+0.1.0 Python package/distribution names, released in the private preview doorway:
 
 - `lumi-layered-memory`
 - `lumi-nuances`
@@ -273,4 +273,4 @@ Before implementation sprints begin, complete:
 - [ ] Private detail/public boundary review completed.
 - [ ] NotebookLM source bundle prepared.
 
-Only then move into the 0.1.0 implementation sprints.
+For the released-version refresh, regenerate all Markdown and DOCX article outputs after updating the generator, then verify the DOCX packages by reading back required terms.

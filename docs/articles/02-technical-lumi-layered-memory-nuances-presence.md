@@ -94,7 +94,7 @@ Lumi Social Intelligence should be tested with synthetic fixtures, anti-pattern 
 
 Synthetic fixtures allow the project to test social behavior without exposing private chat logs or personal memories. Anti-pattern tests can cover overfamiliarity, unsupported inference, fake warmth, noisy initiative, memory overreach, unreviewed adaptation, and failure to repair. Release gates can verify that public-facing files use the correct product names, include required licensing, and avoid private/local material.
 
-For 0.1.0, the system should remain review-gated and fail-closed. It should not introduce uncontrolled live autonomous behavior. A safe preview is not the same thing as a fully live social agent. The first release target is inspectability and installable structure, not dramatic autonomy.
+For `v0.1.0`, the system remains review-gated and fail-closed. It does not introduce uncontrolled live autonomous behavior. A safe preview is not the same thing as a fully live social agent. The first release proves inspectability, installer/adapter structure, packaging, and release hygiene rather than dramatic autonomy.
 
 The release doorway currently expects package/distribution names:
 
@@ -151,7 +151,7 @@ The conservative parts of Lumi Social Intelligence are not signs of weakness. Th
 
 A system that can remember a user over time should be slower to infer than a stateless chatbot. A system that can act should be more careful about permission than a system that only talks. A system that can adapt socially should show its reasoning and leave room for correction. The more personal the agent becomes, the more important it is that learning remains inspectable.
 
-This is why the 0.1.0 scope is an installable Hermes preview with review gates, synthetic fixtures, and fail-closed behavior. The first milestone should prove the shape: memory provides context, Nuances appraises the moment, Presence governs initiative, and the release doorway keeps public artifacts clean.
+This is why the `v0.1.0` scope is an installable Hermes preview with review gates, synthetic fixtures, and fail-closed behavior. That milestone proves the shape: memory provides context, Nuances appraises the moment, Presence governs initiative, and the release doorway keeps public artifacts clean. The `v0.2` scope should now prove the next thing: one real demo path from input context to appraisal, presence decision, receipt, and safe no-write boundary, with live-host limitations documented honestly.
 
 Lumi Social Intelligence is not trying to make agents perform emotion. It is trying to make them safer and more useful at the boundary between memory and action. That is where many long-running assistants will either earn trust or lose it.
 

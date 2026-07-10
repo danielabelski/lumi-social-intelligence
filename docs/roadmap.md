@@ -296,3 +296,64 @@ No private Presence internals, raw runs, memories, chat logs, scheduler/runtime 
 - `v0.1.0` is reproducible, documented, licensed, and public-safe.
 - **Lumi for Hermes** is presented as an installable preview with review gates and fail-closed behavior.
 - **Lumi Social Intelligence** remains the clean release doorway for **Lumi Layered Memory**, **Nuances**, and **Presence**.
+
+
+## v0.2 Integration and Productization
+
+**Goal:** move from a contract-complete 0.1.0 preview into a real, evidence-backed demo and release path without weakening the review, consent, and fail-closed boundaries.
+
+The next phase is intentionally not “more sprint archaeology.” It is productization: prove live behavior, clean the public architecture, and prepare a demo that a human can understand without reading the build history.
+
+## Sprint 8 — Live behavior proof and evidence
+
+**Goal:** prove the live Hermes/Telegram-facing behavior that 0.1.0 only models through review cards and shadow contracts.
+
+### Deliverables
+
+- [ ] Define a repeatable live-demo fixture with explicit input context, nuance appraisal, presence decision, and review receipt.
+- [ ] Run the **Lumi for Hermes** adapter from a clean checkout against the live runtime in dry-run/review-gated mode.
+- [ ] Verify reaction-aware Presence and outbound emoji Presence as live-observed behavior where the host platform supports it.
+- [ ] Capture evidence: command output, screenshots or receipts, timestamps, and any Telegram/API limitation notes.
+- [ ] Add a `docs/demos/` evidence summary that distinguishes observed behavior from still-shadow behavior.
+- [ ] Keep native sends/reactions blocked unless explicitly approved for the demo run.
+
+### Exit criteria
+
+- The demo can show a real path from context → appraisal → presence decision → receipt.
+- Any native Telegram reaction/presence limitation is documented honestly.
+- No private chat logs, credentials, chat IDs, local scheduler internals, or raw runtime state enter public docs.
+
+## Sprint 9 — Public architecture cleanup
+
+**Goal:** make the public surface read like a product, not a sprint transcript.
+
+### Deliverables
+
+- [ ] Rename or reframe sprint-derived module names into durable capability names where useful.
+- [ ] Keep tests and contract coverage, but remove process-first wording from public-facing docs.
+- [ ] Update adapter docs so live-demo scope, shadow-only scope, and blocked side effects are easy to understand.
+- [ ] Update README, release notes, and article sources to state that `v0.1.0` exists as a private, review-gated preview release.
+- [ ] Add a concise `docs/demos/v0.2-demo-script.md` for humans reviewing the product.
+
+### Exit criteria
+
+- A new reader can understand the product shape without knowing the old sprint sequence.
+- Public docs clearly separate shipped `v0.1.0` contracts from planned `v0.2` live integration proof.
+
+## Sprint 10 — Real demo package and release candidate
+
+**Goal:** produce a clean, shareable v0.2 demo package and decide whether it is ready to release.
+
+### Deliverables
+
+- [ ] Add one canonical demo flow with synthetic/public-safe input, expected Nuances appraisal, Presence decision, review card, and no-write boundary.
+- [ ] Add a demo verifier that fails if required receipts, safety fields, or blocked-action explanations are missing.
+- [ ] Build release artifacts from tracked files only.
+- [ ] Run release check, public-readiness audit, clean-checkout smoke, secret/privacy scan, and DOCX verification.
+- [ ] Draft `docs/releases/v0.2.0.md` with explicit “observed live,” “review-gated,” and “not yet supported” sections.
+- [ ] Prepare a release-candidate tag only after the tree is clean and artifacts verify.
+
+### Exit criteria
+
+- The release candidate includes a human-readable demo, machine-verifiable receipts, and honest integration limits.
+- The repository remains private/public-safe until Marko explicitly decides whether to make the release public.
