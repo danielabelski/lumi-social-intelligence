@@ -331,7 +331,7 @@ The next phase is intentionally not “more sprint archaeology.” It is product
 
 - [ ] Rename or reframe sprint-derived module names into durable capability names where useful.
 - [ ] Keep tests and contract coverage, but remove process-first wording from public-facing docs.
-- [ ] Update adapter docs so live-demo scope, shadow-only scope, and blocked side effects are easy to understand.
+- [x] Update adapter docs so live-demo scope, shadow-only scope, and blocked side effects are easy to understand.
 - [ ] Update README, release notes, and article sources to state that `v0.1.0` exists as a private, review-gated preview release.
 - [x] Add a concise `docs/demos/v0.2-demo-script.md` for humans reviewing the product.
 

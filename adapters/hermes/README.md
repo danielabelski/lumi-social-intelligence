@@ -1,8 +1,65 @@
 # Lumi for Hermes adapter
 
-This directory contains the first host-specific preview: **Lumi for Hermes**.
+This directory contains the host-specific preview surface for **Lumi for Hermes**.
 
-The adapter binds **Lumi Layered Memory**, **Nuances**, and **Presence** into Hermes Agent through explicit inputs, review surfaces, and safety gates. Sprint 4 keeps this preview dry-run/review-card only: it produces inspectable output and performs no runtime actions.
+The adapter binds **Lumi Layered Memory**, **Nuances**, and **Presence** into Hermes Agent through explicit inputs, review surfaces, and safety gates. The current public surface is intentionally preview-only: it produces inspectable output and performs no runtime actions.
+
+## Current public scope
+
+Lumi for Hermes is currently a **dry-run/review-gated preview surface**.
+
+It accepts explicit synthetic or host-selected input, normalizes it into public-safe Lumi records, and returns review card or receipt output that a human can inspect before anything is applied elsewhere.
+
+The adapter does **not** claim an autonomous runtime, a live Telegram integration, or a durable memory writer. It is a public contract for safe review-gated behavior.
+
+## Live-demo scope
+
+The current safe live demo can show:
+
+- local adapter execution from explicit input;
+- generated review cards and receipts;
+- fail-closed behavior when grounding or confidence is insufficient;
+- private runtime field rejection at the contract boundary;
+- `canonical_writes: 0` and empty runtime actions;
+- the public v0.2 evidence artifacts under `docs/demos/`.
+
+A presenter may say that the adapter demonstrates the review-gated flow and safety boundaries. Native outbound reaction delivery is not claimed live.
+
+## Shadow-only scope
+
+Reaction and emoji presence records remain preview evidence, not live delivery proof:
+
+- reaction-aware Presence records are shadow-only;
+- outbound emoji Presence records are shadow-only;
+- records are built from explicit host-provided input;
+- allowed outbound emoji choices are limited to `❤️ 😄 👍 👀 ✨`;
+- tiny reply/reaction intent may be represented as a record;
+- no Telegram API reads are performed;
+- no Telegram sends or reactions are performed;
+- no durable memory promotion is performed.
+
+Shadow-only records are useful for reviewing how Lumi would reason about social signals without pretending that the host runtime already acted on them.
+
+## Blocked side effects
+
+The adapter must keep these side effects blocked in the public preview:
+
+- no canonical writes;
+- no Hermes memory writes;
+- no Obsidian or vault edits;
+- no scheduler, queue, or job changes;
+- no Telegram API reads;
+- no Telegram sends or reactions;
+- no delivery-channel selection;
+- no credential, token, or connection-string handling.
+
+Any future mode that performs writes, sends, reactions, scheduling, or durable memory promotion must add an explicit consent path, a receipt, rollback notes where relevant, and tests before it ships.
+
+## Operator rule
+
+When presenting the adapter, say what the evidence proves and stop there:
+
+> This demonstrates Lumi’s review-gated decision path and safety boundaries from explicit inputs. Live Telegram reaction delivery is not claimed until a real host-runtime run verifies it.
 
 ## Adapter contract
 
@@ -54,8 +111,8 @@ memory context → compatibility packet → nuance appraisal → Presence decisi
 
 - `dry_run` — produce a review card only.
 - `review_gated` — same zero-write behavior, but labeled for future human approval workflows.
-- `reaction_presence_shadow` — Sprint 8 reaction-aware Presence card from explicit host-provided reaction input; no Telegram API reads/sends and no memory promotion.
-- `outbound_emoji_presence_shadow` — Sprint 9 assistant-side emoji Presence card from explicit host-provided intent; reaction-only, throttled, shadow-only, and no memory promotion.
+- `reaction_presence_shadow` — reaction-aware Presence card from explicit host-provided reaction input; no Telegram API reads/sends and no memory promotion.
+- `outbound_emoji_presence_shadow` — assistant-side emoji Presence card from explicit host-provided intent; reaction-only, throttled, shadow-only, and no memory promotion.
 
 Both regular modes currently have:
 
