@@ -1,0 +1,12 @@
+[project]
+name = "lumi-presence"
+version = "0.1.0a0"
+description = "Governed initiative and restraint layer for Lumi Social Intelligence"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "See repository license files" }
+authors = [{ name = "Aeonlights" }]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

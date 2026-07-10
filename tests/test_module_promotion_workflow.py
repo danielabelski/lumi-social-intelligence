@@ -105,4 +105,6 @@ def test_synthetic_module_promotion_chain_runs_end_to_end_without_private_source
     assert manifest['status'] == 'applied_reviewed_plan'
     assert manifest['copied_files'] == ['README.md', 'src/lumi_presence/__init__.py', 'tests/test_smoke.py']
 
-    assert not (ROOT / 'core/presence/src/lumi_presence/__init__.py').exists()
+    repo_presence_init = ROOT / 'core/presence/src/lumi_presence/__init__.py'
+    if repo_presence_init.exists():
+        assert repo_presence_init.read_text(encoding='utf-8') != "__all__ = []\n"

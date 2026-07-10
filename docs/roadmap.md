@@ -166,18 +166,33 @@ See [Article Plan for NotebookLM](article-plan.md).
 
 ## Sprint 3 — First curated module promotion
 
+**Status:** Complete for the first tiny Presence doorway candidate.
+
 **Goal:** Promote the first intentionally small public-safe module candidate into **Lumi Social Intelligence**.
 
 ### Deliverables
 
-- [ ] Choose the first candidate module, likely **Presence**.
-- [ ] Prepare a tiny public-safe candidate: README, package skeleton, synthetic examples, and synthetic tests only.
-- [ ] Run the private candidate's own release gate.
-- [ ] Run the doorway read-only export audit.
-- [ ] Review the generated copy plan.
-- [ ] Apply the reviewed plan with `--apply-reviewed-plan`.
-- [ ] Run doorway release check after import.
-- [ ] Commit imports as release-candidate updates only after checks pass.
+- [x] Choose the first candidate module: **Presence**.
+- [x] Prepare a tiny public-safe candidate: README, package skeleton, synthetic examples, and synthetic tests only.
+- [x] Run the candidate's own release gate.
+- [x] Run the doorway read-only export audit.
+- [x] Review the generated copy plan.
+- [x] Apply the reviewed plan with `--apply-reviewed-plan`.
+- [x] Run doorway release check after import.
+- [x] Commit imports as release-candidate updates only after checks pass.
+
+### Result
+
+The first Presence promotion imports a deliberately small governed-initiative skeleton into `core/presence/`:
+
+- `lumi-presence` package metadata;
+- deterministic `decide_presence_move` public API preview;
+- synthetic example;
+- synthetic tests;
+- public overview documentation;
+- `.lumi-export-manifest.json` recording the reviewed import.
+
+No private Presence internals, raw runs, memories, chat logs, scheduler/runtime details, credentials, or Autoresearch evidence are included.
 
 ### Exit criteria
 

@@ -1,0 +1,15 @@
+{
+  "copied_files": [
+    "README.md",
+    "docs/public/overview.md",
+    "examples/synthetic/basic_decision.py",
+    "pyproject.toml",
+    "src/lumi_presence/__init__.py",
+    "src/lumi_presence/decision.py",
+    "tests/test_decision.py"
+  ],
+  "module": "Presence",
+  "package_name": "lumi-presence",
+  "release_surface": "core/presence",
+  "status": "applied_reviewed_plan"
+}
