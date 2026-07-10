@@ -20,6 +20,7 @@ def test_required_playground_structure_exists():
         'docs/README.md',
         'docs/architecture.md',
         'docs/host-compatibility.md',
+        'docs/memory-provider-compatibility.md',
         'docs/release-boundary.md',
         'docs/product-brief.md',
         'docs/licensing.md',
@@ -46,6 +47,7 @@ def test_public_docs_use_product_names():
         ROOT / 'docs' / 'architecture.md',
         ROOT / 'docs' / 'product-brief.md',
         ROOT / 'docs' / 'host-compatibility.md',
+        ROOT / 'docs' / 'memory-provider-compatibility.md',
         ROOT / 'docs' / 'release-boundary.md',
     ]
     for doc in docs:
@@ -60,3 +62,35 @@ def test_license_model_matches_related_lumi_repos():
     assert 'Creative Commons Attribution 4.0 International License' in docs_license
     notice = (ROOT / 'NOTICE.md').read_text(encoding='utf-8')
     assert 'split license model' in notice
+
+
+def test_memory_provider_compatibility_keeps_main_memory_authoritative():
+    contract = (ROOT / 'docs' / 'memory-provider-compatibility.md').read_text(encoding='utf-8')
+    required_claims = [
+        'The underlying memory provider remains authoritative',
+        'The default write mode is **no write**',
+        'direct silent edits to Obsidian notes',
+        'direct silent edits to Hermes durable memory files',
+        'A Lumi compatibility run must not change the canonical memory provider',
+    ]
+    missing = [claim for claim in required_claims if claim not in contract]
+    assert not missing, missing
+
+
+def test_hermes_adapter_documents_read_only_preview_boundary():
+    adapter = (ROOT / 'adapters' / 'hermes' / 'README.md').read_text(encoding='utf-8')
+    required_claims = [
+        "Hermes' selected memory provider remains authoritative",
+        'Lumi reads selected context only through explicit host configuration',
+        'Lumi emits proposals and receipts before any durable write',
+        'Default preview mode is read-only plus reviewable proposal/receipt output',
+    ]
+    missing = [claim for claim in required_claims if claim not in adapter]
+    assert not missing, missing
+
+
+def test_memory_provider_conflicts_preserve_ambiguity_instead_of_merging():
+    contract = (ROOT / 'docs' / 'memory-provider-compatibility.md').read_text(encoding='utf-8')
+    assert 'Multiple memory providers disagree' in contract
+    assert 'preserves ambiguity' in contract or 'preserve ambiguity' in contract
+    assert 'do not invent a merged fact' in contract

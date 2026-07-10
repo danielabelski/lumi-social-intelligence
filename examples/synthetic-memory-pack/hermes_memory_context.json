@@ -1,0 +1,8 @@
+{
+  "provider": "hermes-memory",
+  "source_id": "hermes://memory/user/communication-style",
+  "timestamp": "2026-07-10T09:05:00+07:00",
+  "confidence": 0.91,
+  "text": "User prefers concise technical summaries with clear boundaries.",
+  "scope": "user"
+}

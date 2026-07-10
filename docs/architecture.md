@@ -58,6 +58,8 @@ Public contract:
 
 Host adapters translate the Lumi Social Intelligence contract into a specific agent runtime.
 
+Adapters also preserve the boundary between Lumi and the host's primary memory provider. Lumi Social Intelligence should not replace Obsidian-like vaults, Hermes memory providers, or other canonical stores. The provider remains authoritative; Lumi adds interpretation, restraint, review, and receipts above it.
+
 Initial adapter:
 
 - **Hermes Agent**
@@ -65,6 +67,8 @@ Initial adapter:
 Deferred compatibility research:
 
 - **OpenClaw** — possible future target, but not implemented or claimed here yet.
+
+Memory-provider compatibility is specified in [Memory Provider Compatibility](memory-provider-compatibility.md).
 
 ## Release flow
 

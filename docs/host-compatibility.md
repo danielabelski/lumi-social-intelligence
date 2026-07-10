@@ -21,6 +21,21 @@ A compatible host should provide or allow:
 - public/private boundary separation;
 - secret and local-state hygiene before release.
 
+## Memory-provider compatibility
+
+Lumi Social Intelligence is not a replacement for the host's memory provider. It should run above or beside the selected provider as a social-intelligence layer.
+
+This means Obsidian-like vaults, Hermes memory providers, and future host memory systems can remain the authoritative store while Lumi reads selected context through an adapter, preserves provenance, interprets social meaning, gates initiative, and emits reviewable proposals or receipts.
+
+Compatibility rule:
+
+```text
+The main memory provider remains authoritative.
+Lumi must not silently rewrite, consolidate, or own provider internals.
+```
+
+See [Memory Provider Compatibility](memory-provider-compatibility.md) for the adapter contract, read/write policy, conflict matrix, and verification invariant.
+
 ## Adapter rule
 
 Adapters are thin runtime bindings. The public product components remain the same across hosts:
