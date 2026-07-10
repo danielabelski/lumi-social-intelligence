@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "purpose": "Public-safe release-gate manifest for promoting reviewed Lumi modules into the Lumi Social Intelligence doorway.",
+  "modules": [
+    {
+      "product_name": "Lumi Layered Memory",
+      "package_name": "lumi-layered-memory",
+      "release_surface": "core/layered-memory",
+      "private_source_key": "layered_memory_private",
+      "promotion_status": "blocked_until_gate_passes",
+      "gate_command": "python3 scripts/validate_module_release_gates.py && pytest -q",
+      "public_safe_fixtures_only": true,
+      "raw_runs_allowed": false,
+      "private_runtime_allowed": false,
+      "credentials_allowed": false,
+      "export_allowlist": [
+        "README.md",
+        "LICENSE*",
+        "NOTICE*",
+        "pyproject.toml",
+        "src/**",
+        "tests/**",
+        "examples/synthetic/**",
+        "docs/public/**"
+      ]
+    },
+    {
+      "product_name": "Nuances",
+      "package_name": "lumi-nuances",
+      "release_surface": "core/nuances",
+      "private_source_key": "nuances_private",
+      "promotion_status": "blocked_until_gate_passes",
+      "gate_command": "python3 scripts/validate_module_release_gates.py && pytest -q",
+      "public_safe_fixtures_only": true,
+      "raw_runs_allowed": false,
+      "private_runtime_allowed": false,
+      "credentials_allowed": false,
+      "export_allowlist": [
+        "README.md",
+        "LICENSE*",
+        "NOTICE*",
+        "pyproject.toml",
+        "src/**",
+        "tests/**",
+        "examples/synthetic/**",
+        "docs/public/**"
+      ]
+    },
+    {
+      "product_name": "Presence",
+      "package_name": "lumi-presence",
+      "release_surface": "core/presence",
+      "private_source_key": "presence_private",
+      "promotion_status": "blocked_until_gate_passes",
+      "gate_command": "python3 scripts/validate_module_release_gates.py && pytest -q",
+      "public_safe_fixtures_only": true,
+      "raw_runs_allowed": false,
+      "private_runtime_allowed": false,
+      "credentials_allowed": false,
+      "export_allowlist": [
+        "README.md",
+        "LICENSE*",
+        "NOTICE*",
+        "pyproject.toml",
+        "src/**",
+        "tests/**",
+        "examples/synthetic/**",
+        "docs/public/**"
+      ]
+    }
+  ]
+}

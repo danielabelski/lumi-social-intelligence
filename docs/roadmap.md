@@ -47,18 +47,20 @@ The release doorway should contain only reviewed, public-safe files. It must not
 
 ## Pre-sprint — NotebookLM article foundation
 
+**Status:** Complete.
+
 **Goal:** Write the source essays that explain Lumi Social Intelligence before implementation sprints begin.
 
 These articles should establish the public narrative, technical research context, and creation story before the 0.1.0 release machinery hardens.
 
 ### Deliverables
 
-- [ ] Full-length Introduction article: **Lumi Social Intelligence**.
-- [ ] Full-length Technical article: **Lumi Social Intelligence — Lumi Layered Memory, Nuances, and Presence**.
-- [ ] Full-length Creation Story: concepting, research, implementation, testing, purpose, and audience.
-- [ ] Technical reference pack for NotebookLM.
-- [ ] Public/private boundary review for all article drafts.
-- [ ] NotebookLM source bundle.
+- [x] Full-length Introduction article: **Lumi Social Intelligence**.
+- [x] Full-length Technical article: **Lumi Social Intelligence — Lumi Layered Memory, Nuances, and Presence**.
+- [x] Full-length Creation Story: concepting, research, implementation, testing, purpose, and audience.
+- [x] Technical reference pack for NotebookLM.
+- [x] Public/private boundary review for all article drafts.
+- [x] NotebookLM source bundle.
 
 ### Framing requirement
 
@@ -99,31 +101,33 @@ See [Article Plan for NotebookLM](article-plan.md).
 
 ## Sprint 1 — Memory-provider compatibility boundary
 
+**Status:** Complete.
+
 **Goal:** Prove and document that **Lumi Social Intelligence** operates as a higher social-intelligence layer above existing memory providers, so Hermes memory, Obsidian, or another main memory backend can keep functioning normally.
 
 ### Deliverables
 
-- [ ] Add a public architecture note explaining that **Lumi Social Intelligence** is not a competing memory backend.
-- [ ] Define the adapter boundary between memory providers and Lumi:
+- [x] Add a public architecture note explaining that **Lumi Social Intelligence** is not a competing memory backend.
+- [x] Define the adapter boundary between memory providers and Lumi:
   - memory provider = durable storage/retrieval;
   - Lumi Layered Memory = continuity policy, citations, receipts, review;
   - Nuances = contextual appraisal;
   - Presence = action/silence decision gate.
-- [ ] Document Obsidian as an example backend: vault notes remain user-owned source material, while Lumi consumes selected context through explicit adapter packets.
-- [ ] Define allowed effects:
+- [x] Document Obsidian as an example backend: vault notes remain user-owned source material, while Lumi consumes selected context through explicit adapter packets.
+- [x] Define allowed effects:
   - read selected context;
   - produce compact context packets;
   - generate receipts;
   - create review proposals if configured.
-- [ ] Define blocked effects:
+- [x] Define blocked effects:
   - no silent rewrites of Obsidian/Hermes memory;
   - no hidden promotion of inferred emotional state;
   - no adapter claiming exclusive memory authority;
   - no uncontrolled live writes or sends.
-- [ ] Add synthetic fixture tests for provider-neutral context packets.
-- [ ] Add one Obsidian-shaped fixture and one Hermes-memory-shaped fixture proving both can feed the same Lumi decision path.
-- [ ] Add fail-closed tests for missing provider data, ambiguous authority, stale context, and blocked write attempts.
-- [ ] Update **Lumi for Hermes** adapter docs to state that Hermes' configured memory provider remains authoritative unless an explicit reviewed apply path is configured.
+- [x] Add synthetic fixture tests for provider-neutral context packets.
+- [x] Add one Obsidian-shaped fixture and one Hermes-memory-shaped fixture proving both can feed the same Lumi decision path.
+- [x] Add fail-closed tests for missing provider data, ambiguous authority, stale context, and blocked write attempts.
+- [x] Update **Lumi for Hermes** adapter docs to state that Hermes' configured memory provider remains authoritative unless an explicit reviewed apply path is configured.
 
 ### Exit criteria
 

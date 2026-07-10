@@ -15,6 +15,7 @@ else
 fi
 
 python3 scripts/public_secret_scan.py
+python3 scripts/validate_module_release_gates.py
 
 git diff --check
 
