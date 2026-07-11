@@ -10,7 +10,7 @@ Lumi Layered Memory -> Nuances -> Presence
 
 It gives agent runtimes a governed reflection layer: adaptive memory, nuance, and presence with confidence scoring, contradiction handling, user approval, skill evaluation, review, consent, and repair.
 
-> **Status:** private, review-gated `v0.1.0` preview release. The first **Lumi for Hermes** preview release exists as a non-mutating review-card surface; `v0.2` is a demo-evidence path, not a live automation claim. Native Telegram reactions are not claimed until verified by a real host-runtime run.
+> **Status:** private, review-gated `v0.1.0` preview release. The first **Lumi for Hermes** preview release exists as a non-mutating review-card surface; `v0.2` is a demo-evidence path, not a live automation claim. Native Telegram reactions are not claimed until verified by a real host-runtime run. The current development surface adds shadow-only Live Surface natural-language controls; native sends, Calendar/email reads, runtime mutations, and durable host writes are not claimed unless separately verified and approved.
 
 ## Why it exists
 
@@ -115,6 +115,7 @@ Every release must pass the local release gate:
 - [Release roadmap, including v0.2 demo/productization sprints](docs/roadmap.md)
 - [v0.2 Demo Index](docs/demos/v0.2-demo-index.md)
 - [v0.2 Demo Evidence Path](docs/demos/README.md)
+- [Live Surface natural-language controls](docs/live-surface-natural-language-controls.md)
 
 ## License
 

@@ -357,3 +357,24 @@ The next phase is intentionally not “more sprint archaeology.” It is product
 
 - The release candidate includes a human-readable demo, machine-verifiable receipts, and honest integration limits.
 - The repository remains private/public-safe until Marko explicitly decides whether to make the release public.
+
+## v0.3 Live Surface Controls
+
+**Goal:** add a public-safe, shadow-only preview of Live Surface natural-language controls without claiming live automation or new personal-data access.
+
+## Sprint 11 — Natural-language Live Surface controls
+
+### Deliverables
+
+- [x] Add a deterministic shadow parser for ordinary phrasing such as “keep this ready”, “only if I ask”, and “park this for later”.
+- [x] Keep safe controls local/session-scoped, reversible, TTL-bound, and tiny in acknowledgement.
+- [x] Gate Calendar/email/personal-data surfaces behind explicit review and block reads until the surface exists.
+- [x] Gate external sends, scheduler/config edits, durable memory writes, and broad forgetting.
+- [x] Store raw user text hashes by default, not raw text.
+- [x] Add public docs and release-candidate notes for v0.3.0.
+- [x] Add tests proving zero side effects and no runtime plumbing in acknowledgements.
+
+### Exit criteria
+
+- The repository can demonstrate Live Surface controls as a public-safe shadow contract.
+- The public surface remains honest: no Calendar/email access, native sends, scheduler mutations, runtime config writes, or durable memory writes are claimed by this release-candidate.
