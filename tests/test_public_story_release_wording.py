@@ -52,16 +52,25 @@ def test_officialization_notes_are_not_sprint_transcript_first():
     assert '| Capability | Public-readiness contribution |' in text
 
 
-def test_article_source_uses_private_preview_and_demo_evidence_boundary():
+def test_article_source_uses_current_review_gated_live_surface_boundary():
     text = read(TECHNICAL_ARTICLE)
 
     required = [
-        '`v0.1.0` scope is a private, review-gated Hermes preview',
-        '`v0.2` scope should now prove the next thing: one demo-evidence path',
-        'It is not a live automation claim',
+        'The system remains review-gated and fail-closed',
+        'tested Live Surface contracts and natural-language controls',
+        'Natural-language controls are semantic intent families, not magic keyword commands',
+        'already-warmed safe context should add no user-visible wait',
+        'refresh pressure is kept separate from permission to surface proactively',
+        'without overstating live automation',
+    ]
+    forbidden = [
+        '0.3.0',
+        'v0.3.0',
     ]
     missing = [phrase for phrase in required if phrase not in text]
+    present_forbidden = [phrase for phrase in forbidden if phrase in text]
     assert not missing, missing
+    assert not present_forbidden, present_forbidden
 
 
 def test_roadmap_marks_public_story_cleanup_done():

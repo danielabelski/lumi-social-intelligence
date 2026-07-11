@@ -118,7 +118,7 @@ Lumi Social Intelligence treats those as different questions.
 
 The architecture is designed around review, consent, and repair. Those are not decorative ethics words placed on top of the product. They are part of the product shape. A memory layer without review becomes hidden profiling. A nuance layer without humility becomes mind-reading theater. A presence layer without restraint becomes a notification cannon in a nice coat.
 
-The first release doorway is **Lumi Social Intelligence**. In `v0.1.0`, that doorway has shipped as a private, review-gated Hermes preview: clean enough to inspect, packaged enough to verify, and intentionally conservative about live behavior. The release surface keeps the public story coherent: three cooperating products working as one social-intelligence layer, rather than a scattered pile of internal experiments.
+The release doorway is **Lumi Social Intelligence**. It has moved beyond a packaging-only preview into a public-safe release surface with tested modules, release artifacts, documentation, and a conservative Live Surface path for natural-language controls. The release surface keeps the public story coherent: three cooperating products working as one social-intelligence layer, rather than a scattered pile of internal experiments.
 
 The first planned host target is **Lumi for Hermes**. Hermes Agent is a natural first home because it is built around a personal assistant model: tools, memory, scheduled work, desktop automation, and long-running collaboration. But Lumi Social Intelligence is designed as a host-neutral layer. Host adapters should be thin runtime bindings. The product idea remains the same: careful continuity, humble appraisal, governed initiative, visible review, and fail-closed safety.
 
@@ -144,7 +144,7 @@ For agent builders, the value is a cleaner product model. Instead of treating â€
 
 That loop is small enough to test and strong enough to shape a real product. It makes room for synthetic fixtures, anti-pattern tests, release gates, review cards, and fail-closed behavior. It turns social intelligence from a vibe into something that can be inspected.
 
-The early release path is intentionally cautious. The repository has now crossed the first line: `v0.1.0` is a private, reproducible, review-gated preview release with release artifacts, public-safe documentation, installer/adapter structure, and privacy scans. Private development repositories can remain messy and experimental. The public doorway only receives curated, tested, public-safe material. Raw runs, private memories, diaries, local runtime state, scheduler internals, credentials, chat IDs, private coordinates, and unverified host claims do not belong in the release surface. The next phase, `v0.2`, is integration and productization: prove live behavior, clean sprint-shaped public architecture, and produce one real demo flow with honest evidence.
+The release path remains intentionally cautious. The repository has crossed from preview packaging into a tested public doorway: release artifacts, public-safe documentation, installer/adapter structure, privacy scans, Live Surface contracts, and natural-language controls that treat user phrasing as semantic intent rather than brittle keywords. Private development repositories can remain messy and experimental. The public doorway only receives curated, tested, public-safe material. Raw runs, private memories, diaries, local runtime state, scheduler internals, credentials, chat IDs, private coordinates, and unverified host claims do not belong in the release surface. The next phase is integration and productization: connect more host behavior to the same review-gated contracts, expand honest demo evidence, and keep live-host limitations documented clearly.
 
 That boundary is not bureaucracy. It is the same philosophy applied to the project itself: remember carefully, interpret carefully, act carefully. The product cannot credibly ask agents to respect context if its own release process leaks private context. The architecture has to live its own values.
 
@@ -249,7 +249,7 @@ Lumi Social Intelligence should be tested with synthetic fixtures, anti-pattern 
 
 Synthetic fixtures allow the project to test social behavior without exposing private chat logs or personal memories. Anti-pattern tests can cover overfamiliarity, unsupported inference, fake warmth, noisy initiative, memory overreach, unreviewed adaptation, and failure to repair. Release gates can verify that public-facing files use the correct product names, include required licensing, and avoid private/local material.
 
-For `v0.1.0`, the system remains review-gated and fail-closed. It does not introduce uncontrolled live autonomous behavior. A safe preview is not the same thing as a fully live social agent. The first release proves inspectability, installer/adapter structure, packaging, and release hygiene rather than dramatic autonomy.
+The system remains review-gated and fail-closed. It does not introduce uncontrolled live autonomous behavior. The current public surface proves more than packaging: it includes tested Live Surface contracts and natural-language controls, while still avoiding claims of broad live autonomy. Natural-language controls are semantic intent families, not magic keyword commands; already-warmed safe context should add no user-visible wait, and refresh pressure is kept separate from permission to surface proactively.
 
 The release doorway currently expects package/distribution names:
 
@@ -306,7 +306,7 @@ The conservative parts of Lumi Social Intelligence are not signs of weakness. Th
 
 A system that can remember a user over time should be slower to infer than a stateless chatbot. A system that can act should be more careful about permission than a system that only talks. A system that can adapt socially should show its reasoning and leave room for correction. The more personal the agent becomes, the more important it is that learning remains inspectable.
 
-This is why the `v0.1.0` scope is an installable Hermes preview with review gates, synthetic fixtures, and fail-closed behavior. That milestone proves the shape: memory provides context, Nuances appraises the moment, Presence governs initiative, and the release doorway keeps public artifacts clean. The `v0.2` scope should now prove the next thing: one real demo path from input context to appraisal, presence decision, receipt, and safe no-write boundary, with live-host limitations documented honestly.
+This is why the current scope stays review-gated, synthetic-fixture-driven, and fail-closed. The project now proves the shape and a clearer interaction contract: memory provides context, Nuances appraises the moment, Presence governs initiative, natural-language controls route user intent, and the release doorway keeps public artifacts clean. The next work is to deepen host integration and demo evidence without overstating live automation. Live-host limitations should remain documented honestly.
 
 Lumi Social Intelligence is not trying to make agents perform emotion. It is trying to make them safer and more useful at the boundary between memory and action. That is where many long-running assistants will either earn trust or lose it.
 
@@ -386,7 +386,7 @@ Private repo passes release gate
 
 That release discipline is part of the story. Lumi Social Intelligence is not just about making agents polite. It is about making social adaptation testable. The project uses synthetic fixtures instead of private chat logs, anti-pattern tests instead of vibes, public/secret scans instead of hope, and fail-closed gates instead of uncontrolled live autonomy.
 
-The first release target, **0.1.0: installable Hermes preview**, has been cut as a private, review-gated preview release. The distribution names are:
+The release target has moved from an installable Hermes preview into a public-safe social-intelligence doorway with tested Live Surface contracts and natural-language controls. The distribution names remain:
 
 ```text
 lumi-layered-memory
@@ -416,7 +416,7 @@ A nuance layer that stays humble.
 
 A presence layer that knows when not to act.
 
-And a release doorway clean enough to ship without betraying the private work that taught the system why those boundaries matter. The next job is not to add more mythology; it is to show the product working through a real, evidence-backed demo and decide what deserves the `v0.2` release label.
+And a release doorway clean enough to ship without betraying the private work that taught the system why those boundaries matter. The next job is not to add more mythology; it is to deepen host integration, keep evidence public-safe, and show natural-language social-intelligence controls working through honest demos without pretending that every private runtime capability is already part of the public surface.
 """
 
 FILES = {
@@ -526,9 +526,9 @@ def main() -> None:
         outputs.append(docx)
 
     checks = {
-        "01-introduction-lumi-social-intelligence.docx": ["Lumi Social Intelligence", "Lumi Layered Memory", "Nuances", "Presence", "Hermes Agent", "social-intelligence layer for agents", "v0.1.0", "v0.2"],
-        "02-technical-lumi-layered-memory-nuances-presence.docx": ["lumi-layered-memory", "lumi-nuances", "lumi-presence", "Autoresearch", "Private repo passes release gate", "v0.1.0", "v0.2"],
-        "03-creation-story-lumi-social-intelligence.docx": ["one man concepting a full social-intelligence layer for Hermes Agent", "non-developer", "project manager", "QA", "music producer", "v0.2 release label"],
+        "01-introduction-lumi-social-intelligence.docx": ["Lumi Social Intelligence", "Lumi Layered Memory", "Nuances", "Presence", "Hermes Agent", "social-intelligence layer for agents", "Live Surface", "natural-language controls"],
+        "02-technical-lumi-layered-memory-nuances-presence.docx": ["lumi-layered-memory", "lumi-nuances", "lumi-presence", "Autoresearch", "Private repo passes release gate", "Live Surface", "natural-language controls"],
+        "03-creation-story-lumi-social-intelligence.docx": ["one man concepting a full social-intelligence layer for Hermes Agent", "non-developer", "project manager", "QA", "music producer", "honest demos"],
         "references.docx": ["Retrieval-Augmented Generation", "Guidelines for Human-AI Interaction", "Privacy as Contextual Integrity", "Hermes Agent Documentation"],
     }
     for docx in outputs:
