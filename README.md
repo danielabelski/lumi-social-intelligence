@@ -10,7 +10,7 @@ Lumi Layered Memory -> Nuances -> Presence -> Live Surface
 
 It gives agent runtimes a governed reflection layer: adaptive memory, nuance, and presence with confidence scoring, contradiction handling, user approval, skill evaluation, review, consent, repair, and explicit control boundaries for live host surfaces.
 
-> **Status:** latest public release is **`v0.4.0`** — real, review-gated Live Surface natural-language controls. The original track began as a private, review-gated `v0.1.0` preview release; `v0.2` is a demo-evidence path, not a live automation claim. Native Telegram reactions are not claimed until verified by a real host-runtime run. `v0.4.0` claims review-gated public Live Surface control cards and zero-write safety counters, not autonomous private runtime automation.
+> **Status:** latest public release is **`v0.4.2`** — a care release for Live Surface instant reactions and Next-Step Care narration. The original track began as a private, review-gated `v0.1.0` preview release; `v0.2` is a demo-evidence path, not a live automation claim; `v0.4.0` added review-gated Live Surface control cards; `v0.4.1` verified the host-runtime native Telegram reaction payload contract. Native Telegram reactions are not claimed until verified by a real host-runtime run; `v0.4.2` packages the public-safe product contract: instant safe reactions must be deterministic, 0-tool-call host control-plane actions, while multi-step/uncertain work should narrate the next small step before acting.
 
 ## Why it exists
 
@@ -26,37 +26,35 @@ It is also built around a stricter self-improvement boundary:
 
 That means **Lumi Social Intelligence** is not an auto-personality-rewriter. It is a governed reflection layer around agent self-improvement: observations can be scored, contradicted, reviewed, rejected, repaired, or promoted with explicit approval. The agent does not freely rewrite its identity after every interaction.
 
-## Latest release: v0.4.0
+## Latest release: v0.4.2
 
-**v0.4.0** adds the first real public release of review-gated **Live Surface natural-language controls**.
+**v0.4.2** is a care release for **Live Surface instant reactions** and **Next-Step Care**.
 
-Live Surface is the capability boundary between “the assistant has safe, warmed context” and “the assistant is allowed to act.” It is designed for host integrations where a tool or surface may be present, but action still needs explicit review, membership, or approval.
+Live Surface is the capability boundary between “the assistant has safe, warmed context” and “the assistant is allowed to act.” v0.4.2 tightens the UX rule we missed in the original release: safe tiny control-plane actions should be immediate and deterministic, while anything that may make the user wait, wonder, or feel out of control should narrate the next small step before acting.
 
-In this release, the public API can produce review-gated control cards for safe session-readiness state and fail closed when a requested personal-data surface is not available.
+### What v0.4.2 offers
 
-### What v0.4.0 offers
+- A public-safe `care_release` contract module.
+- Instant reaction planning for host adapters:
+  - default emoji: `❤️`
+  - target source: existing host envelope only
+  - agent loop/tool discovery: `0 tool calls`
+  - DB archaeology/message guessing: forbidden
+- Next-Step Care narration for multi-step, uncertain, or side-effectful work.
+- Explicit fail-closed behavior when no safe host-envelope message target exists.
+- Public evidence artifacts for the care release:
+  - `docs/evidence/v0.4.2-care-release-evidence.json`
+  - `docs/evidence/v0.4.2-care-release-evidence.md`
 
-- Semantic Live Surface intent parsing — ordinary phrases, not magic keywords.
-- Safe session-readiness review cards.
-- Explicit `review_required` handling for personal-data surfaces.
-- Fail-closed behavior for unavailable surfaces such as Calendar.
-- Zero side-effect counters for the public control path:
-  - `canonical_writes: 0`
-  - `external_writes: 0`
-  - `private_runtime_reads: 0`
-  - `scheduler_mutations: 0`
-- A clearer split between warmed context and approved action.
+### What v0.4.2 does not claim
 
-### What v0.4.0 does not claim
+- Sending Telegram reactions from the public repository.
+- Private Hermes runtime reads.
+- Runtime config, scheduler, memory, or queue mutation.
+- Guessing target message IDs.
+- Replacing host-adapter integration work; this release defines the contract the host must implement.
 
-- Autonomous private runtime automation.
-- Telegram sends or native reactions.
-- Calendar or email reads without explicit reviewed surface membership.
-- Runtime config or scheduler mutation.
-- Durable memory writes.
-- Raw private Hermes runtime access.
-
-See the [v0.4.0 release notes](docs/releases/v0.4.0.md) and [release evidence](docs/evidence/v0.4.0-real-controls-evidence.md).
+See the [v0.4.2 release notes](docs/releases/v0.4.2.md) and [release evidence](docs/evidence/v0.4.2-care-release-evidence.md).
 
 ## The short concept
 

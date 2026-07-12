@@ -20,6 +20,7 @@ python3 -m pytest -q tests/test_release_candidate.py
 python3 scripts/verify_v02_demo_package.py >/tmp/lumi-v02-demo-verification.json
 python3 scripts/build_v04_real_controls_evidence.py --evidence /tmp/lumi-v04-real-controls-evidence.json --markdown /tmp/lumi-v04-real-controls-evidence.md >/tmp/lumi-v04-real-controls-build.json
 python3 scripts/build_v041_native_reaction_evidence.py --evidence /tmp/lumi-v041-native-reaction-evidence.json --markdown /tmp/lumi-v041-native-reaction-evidence.md >/tmp/lumi-v041-native-reaction-build.json
+python3 scripts/build_v042_care_release_evidence.py --evidence /tmp/lumi-v042-care-release-evidence.json --markdown /tmp/lumi-v042-care-release-evidence.md >/tmp/lumi-v042-care-release-build.json
 python3 scripts/public_readiness_audit.py --artifact-dir /tmp/lumi-public-readiness-artifacts --report /tmp/lumi-public-readiness-report.json
 ./scripts/clean_checkout_smoke.sh
 

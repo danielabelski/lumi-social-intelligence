@@ -1,0 +1,65 @@
+{
+  "claim_boundary": "Public-safe care contract/evidence for instant Live Surface reactions and Next-Step Care; no public repo Telegram sends",
+  "instant_reaction_contract": {
+    "agent_tool_calls_allowed": 0,
+    "db_archaeology_allowed": false,
+    "default_emoji": "\u2764\ufe0f",
+    "execution_lane": "instant_control_plane",
+    "intent": "react_to_last_user_message",
+    "llm_planning_required": false,
+    "must_not_guess_message_id": true,
+    "target_resolution": "host_envelope_required",
+    "telegram_payload_contract_inherited_from_v041": "list[telegram.ReactionTypeEmoji]",
+    "tool_discovery_allowed": false,
+    "visible_latency_budget": "instant"
+  },
+  "next_step_care_contract": {
+    "accessibility_note": "Care infrastructure for neurodivergent users; not cosmetic polish",
+    "after_success_example": "Done \u2764\ufe0f",
+    "before_action_example": "I\u2019m going to react with \u2764\ufe0f to your latest Telegram message.",
+    "fail_closed_example": "I can\u2019t safely find the last message id, so I won\u2019t guess.",
+    "must_precede_side_effect": true,
+    "name": "Next-Step Care",
+    "purpose": "tiny predictable narration that reduces uncertainty before side effects"
+  },
+  "not_claimed": [
+    "The public repository sends Telegram reactions itself",
+    "The public repository exports raw Telegram message IDs or chat IDs",
+    "The public repository ships the private Hermes runtime adapter",
+    "An agent should search tools or private databases to react to a warmed-context message"
+  ],
+  "public_boundary": {
+    "includes_public_safe_contract": true,
+    "raw_private_runtime_state": false,
+    "sends_telegram_reactions": false,
+    "ships_private_hermes_adapter": false,
+    "stores_message_ids_publicly": false
+  },
+  "release_principle": "Live Surface reduces uncertainty before it reduces task time",
+  "schema": "lumi.v042.care_release_evidence.v1",
+  "side_effects": {
+    "private_runtime_reads_by_public_repo": 0,
+    "runtime_mutations_by_public_repo": 0,
+    "telegram_messages_sent_by_public_repo": 0,
+    "telegram_reactions_sent_by_public_repo": 0
+  },
+  "sprint_plan": [
+    {
+      "done_when": "reaction intent resolves from host envelope with 0 tool calls and no DB archaeology",
+      "name": "Instant reaction primitive",
+      "sprint": 1
+    },
+    {
+      "done_when": "before/action/after/fail-closed microcopy is part of the action plan contract",
+      "name": "Next-Step Care narration",
+      "sprint": 2
+    },
+    {
+      "done_when": "release artifacts document the contract while keeping private runtime state out",
+      "name": "Public release evidence",
+      "sprint": 3
+    }
+  ],
+  "status": "verified",
+  "version": "0.4.2"
+}

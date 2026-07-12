@@ -26,6 +26,7 @@ if str(ROOT) not in sys.path:
 from scripts.verify_v02_demo_package import verify as verify_v02_demo_package
 from scripts.build_v04_real_controls_evidence import build_receipt as build_v04_receipt
 from scripts.build_v041_native_reaction_evidence import build_receipt as build_v041_receipt
+from scripts.build_v042_care_release_evidence import build_receipt as build_v042_receipt
 
 DEFAULT_VERSION = '0.4.0'
 FORBIDDEN_MEMBER_PATTERNS = (
@@ -80,6 +81,13 @@ VERSION_REQUIRED_RELEASE_MEMBERS = {
         'docs/evidence/v0.4.1-native-reaction-evidence.json',
         'docs/evidence/v0.4.1-native-reaction-evidence.md',
         'scripts/build_v041_native_reaction_evidence.py',
+    ),
+    '0.4.2': (
+        'docs/releases/v0.4.2.md',
+        'docs/evidence/v0.4.2-care-release-evidence.json',
+        'docs/evidence/v0.4.2-care-release-evidence.md',
+        'scripts/build_v042_care_release_evidence.py',
+        'lumi_social_intelligence/care_release.py',
     ),
 }
 
@@ -178,10 +186,15 @@ def build(output_dir: Path, version: str = DEFAULT_VERSION) -> dict[str, object]
     if v04_real_controls_evidence['shadow_only'] is not False:
         raise SystemExit('v0.4 real controls evidence must not be shadow-only')
     native_telegram_reaction_evidence = None
-    if version == '0.4.1':
+    if version in {'0.4.1', '0.4.2'}:
         native_telegram_reaction_evidence = build_v041_receipt()
         if native_telegram_reaction_evidence['status'] != 'verified':
             raise SystemExit('v0.4.1 native reaction evidence failed verification')
+    care_release_evidence = None
+    if version == '0.4.2':
+        care_release_evidence = build_v042_receipt()
+        if care_release_evidence['status'] != 'verified':
+            raise SystemExit('v0.4.2 care release evidence failed verification')
 
     members = tracked_members
     missing_required = [member for member in _required_release_members(version) if member not in members]
@@ -229,6 +242,15 @@ def build(output_dir: Path, version: str = DEFAULT_VERSION) -> dict[str, object]
             'telegram_payload_contract': native_telegram_reaction_evidence['telegram_payload_contract'],
             'public_boundary': native_telegram_reaction_evidence['public_boundary'],
             'side_effects': native_telegram_reaction_evidence['side_effects'],
+        }
+    if care_release_evidence is not None:
+        manifest['care_release_evidence'] = {
+            'status': care_release_evidence['status'],
+            'release_principle': care_release_evidence['release_principle'],
+            'instant_reaction_contract': care_release_evidence['instant_reaction_contract'],
+            'next_step_care_contract': care_release_evidence['next_step_care_contract'],
+            'public_boundary': care_release_evidence['public_boundary'],
+            'side_effects': care_release_evidence['side_effects'],
         }
     manifest_path = output_dir / 'release-manifest.json'
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')
