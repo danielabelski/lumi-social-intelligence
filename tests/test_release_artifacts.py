@@ -110,6 +110,8 @@ def test_clean_checkout_smoke_script_exists_and_checks_artifact_contract():
     assert 'build_release_artifacts.py' in text
     assert 'release-manifest.json' in text
     assert 'SHA256SUMS' in text
+    assert '--version 0.4.1' in text
+    assert 'native_telegram_reaction_evidence' in text
 
 
 def test_github_release_workflow_runs_release_gate_and_uploads_artifacts():

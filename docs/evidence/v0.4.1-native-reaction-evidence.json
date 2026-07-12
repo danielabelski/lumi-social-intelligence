@@ -1,0 +1,37 @@
+{
+  "claim_boundary": "Hermes native Telegram emoji reaction delivery verified; public release packages contract/evidence only",
+  "live_runtime_evidence": {
+    "adapter_boundary": "private Hermes runtime",
+    "native_reaction_delivery": "verified",
+    "payload_shape": "list[telegram.ReactionTypeEmoji]",
+    "primitive_emoji_string": "rejected at SDK boundary"
+  },
+  "not_claimed": [
+    "The public repo ships the private Hermes adapter",
+    "The public repo sends Telegram reactions itself",
+    "The public repo includes raw private Hermes logs or runtime state",
+    "A primitive emoji string is sufficient for python-telegram-bot native reaction delivery"
+  ],
+  "public_boundary": {
+    "includes_contract_notes": true,
+    "includes_public_safe_evidence": true,
+    "raw_private_runtime_state": false,
+    "ships_private_hermes_adapter": false
+  },
+  "schema": "lumi.v041.native_reaction_evidence.v1",
+  "side_effects": {
+    "private_runtime_reads_by_public_repo": 0,
+    "runtime_mutations_by_public_repo": 0,
+    "telegram_messages_sent_by_public_repo": 0,
+    "telegram_reactions_sent_by_public_repo": 0
+  },
+  "status": "verified",
+  "telegram_payload_contract": {
+    "accepted_primitive_reaction": false,
+    "method": "Bot.set_message_reaction",
+    "reaction": [
+      "ReactionTypeEmoji(emoji='\u2764\ufe0f')"
+    ]
+  },
+  "version": "0.4.1"
+}

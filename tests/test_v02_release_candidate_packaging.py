@@ -113,7 +113,8 @@ def test_v02_release_artifacts_package_tracked_demo_and_notes(tmp_path):
     assert checksum_by_name[manifest.name] == hashlib.sha256(manifest.read_bytes()).hexdigest()
 
 
-def test_release_candidate_planner_defaults_to_v040():
+def test_release_candidate_planner_defaults_to_v041():
     script = (ROOT / 'scripts' / 'prepare_release_candidate.py').read_text(encoding='utf-8')
-    assert "default='v0.4.0'" in script
-    assert "docs/releases/v0.4.0.md" in script
+    assert "default='v0.4.1'" in script
+    assert "docs/releases/v0.4.1.md" in script
+    assert "ReactionTypeEmoji" in script

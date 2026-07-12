@@ -181,7 +181,7 @@ def _load_release_builder():
 
 def release_archive_scan_check(artifact_dir: Path) -> dict[str, Any]:
     builder = _load_release_builder()
-    build_report = builder.build(artifact_dir)
+    build_report = builder.build(artifact_dir, version='0.4.1')
     manifest_path = artifact_dir / 'release-manifest.json'
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
     archive_path = artifact_dir / manifest['archive']
@@ -204,6 +204,7 @@ def release_archive_scan_check(artifact_dir: Path) -> dict[str, Any]:
         'canonical_writes': manifest['canonical_writes'],
         'v02_demo_verification': manifest.get('v02_demo_verification', {}),
         'v04_real_controls_evidence': manifest.get('v04_real_controls_evidence', {}),
+        'native_telegram_reaction_evidence': manifest.get('native_telegram_reaction_evidence', {}),
         'package_artifacts': manifest['package_artifacts'],
     }
     return _check('release_archive_scan', findings, details)

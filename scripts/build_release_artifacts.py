@@ -24,10 +24,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.verify_v02_demo_package import verify as verify_v02_demo_package
-from scripts.build_v04_real_controls_evidence import build_receipt
+from scripts.build_v04_real_controls_evidence import build_receipt as build_v04_receipt
+from scripts.build_v041_native_reaction_evidence import build_receipt as build_v041_receipt
 
-VERSION = '0.4.0'
-ARCHIVE_NAME = f'lumi-social-intelligence-{VERSION}.zip'
+DEFAULT_VERSION = '0.4.0'
 FORBIDDEN_MEMBER_PATTERNS = (
     '.git/*',
     '.hermes/*',
@@ -44,7 +44,7 @@ FORBIDDEN_MEMBER_PATTERNS = (
     'build/*',
     '*.egg-info/*',
 )
-REQUIRED_RELEASE_MEMBERS = (
+BASE_REQUIRED_RELEASE_MEMBERS = (
     'README.md',
     'LICENSE',
     'LICENSE-DOCS.md',
@@ -52,9 +52,6 @@ REQUIRED_RELEASE_MEMBERS = (
     'docs/releases/v0.1.0.md',
     'docs/releases/v0.2.0.md',
     'docs/releases/v0.3.0.md',
-    'docs/releases/v0.4.0.md',
-    'docs/evidence/v0.4.0-real-controls-evidence.json',
-    'docs/evidence/v0.4.0-real-controls-evidence.md',
     'docs/demos/v0.2-demo-evidence.json',
     'docs/demos/v0.2-demo-side-by-side.json',
     'docs/demos/v0.2-demo-side-by-side.md',
@@ -72,6 +69,19 @@ REQUIRED_RELEASE_MEMBERS = (
     'installers/lumi-for-hermes/README.md',
     'core/presence/pyproject.toml',
 )
+VERSION_REQUIRED_RELEASE_MEMBERS = {
+    '0.4.0': (
+        'docs/releases/v0.4.0.md',
+        'docs/evidence/v0.4.0-real-controls-evidence.json',
+        'docs/evidence/v0.4.0-real-controls-evidence.md',
+    ),
+    '0.4.1': (
+        'docs/releases/v0.4.1.md',
+        'docs/evidence/v0.4.1-native-reaction-evidence.json',
+        'docs/evidence/v0.4.1-native-reaction-evidence.md',
+        'scripts/build_v041_native_reaction_evidence.py',
+    ),
+}
 
 
 def _run_git_ls_files() -> list[str]:
@@ -142,7 +152,17 @@ def _package_artifacts(members: list[str]) -> list[dict[str, str]]:
     return packages
 
 
-def build(output_dir: Path) -> dict[str, object]:
+def _archive_name(version: str) -> str:
+    return f'lumi-social-intelligence-{version}.zip'
+
+
+def _required_release_members(version: str) -> tuple[str, ...]:
+    if version not in VERSION_REQUIRED_RELEASE_MEMBERS:
+        raise SystemExit(f'unsupported release version: {version}')
+    return BASE_REQUIRED_RELEASE_MEMBERS + VERSION_REQUIRED_RELEASE_MEMBERS[version]
+
+
+def build(output_dir: Path, version: str = DEFAULT_VERSION) -> dict[str, object]:
     output_dir.mkdir(parents=True, exist_ok=True)
     tracked_members = _run_git_ls_files()
     findings = _private_material_findings(tracked_members)
@@ -152,24 +172,30 @@ def build(output_dir: Path) -> dict[str, object]:
     v02_demo_verification = verify_v02_demo_package()
     if v02_demo_verification['status'] != 'verified':
         raise SystemExit(f'v0.2 demo verification failed: {v02_demo_verification["findings"]}')
-    v04_real_controls_evidence = build_receipt()
+    v04_real_controls_evidence = build_v04_receipt()
     if v04_real_controls_evidence['status'] != 'verified':
         raise SystemExit('v0.4 real controls evidence failed verification')
     if v04_real_controls_evidence['shadow_only'] is not False:
         raise SystemExit('v0.4 real controls evidence must not be shadow-only')
+    native_telegram_reaction_evidence = None
+    if version == '0.4.1':
+        native_telegram_reaction_evidence = build_v041_receipt()
+        if native_telegram_reaction_evidence['status'] != 'verified':
+            raise SystemExit('v0.4.1 native reaction evidence failed verification')
 
     members = tracked_members
-    missing_required = [member for member in REQUIRED_RELEASE_MEMBERS if member not in members]
+    missing_required = [member for member in _required_release_members(version) if member not in members]
     if missing_required:
         raise SystemExit(f'missing required release members: {missing_required}')
 
-    archive_path = output_dir / ARCHIVE_NAME
+    archive_name = _archive_name(version)
+    archive_path = output_dir / archive_name
     _write_zip(archive_path, members)
 
     manifest = {
         'schema': 'lumi.release_manifest.v1',
-        'version': VERSION,
-        'archive': ARCHIVE_NAME,
+        'version': version,
+        'archive': archive_name,
         'archive_members': members,
         'package_artifacts': _package_artifacts(members),
         'lumi_for_hermes_preview': {
@@ -196,6 +222,14 @@ def build(output_dir: Path) -> dict[str, object]:
         },
         'canonical_writes': 0,
     }
+    if native_telegram_reaction_evidence is not None:
+        manifest['native_telegram_reaction_evidence'] = {
+            'status': native_telegram_reaction_evidence['status'],
+            'claim_boundary': native_telegram_reaction_evidence['claim_boundary'],
+            'telegram_payload_contract': native_telegram_reaction_evidence['telegram_payload_contract'],
+            'public_boundary': native_telegram_reaction_evidence['public_boundary'],
+            'side_effects': native_telegram_reaction_evidence['side_effects'],
+        }
     manifest_path = output_dir / 'release-manifest.json'
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')
     checksums_path = _write_checksums(output_dir, [archive_path, manifest_path])
@@ -203,7 +237,7 @@ def build(output_dir: Path) -> dict[str, object]:
     return {
         'schema': 'lumi.release_artifacts.v1',
         'status': 'built',
-        'version': VERSION,
+        'version': version,
         'output_dir': str(output_dir),
         'artifacts': [archive_path.name, manifest_path.name, checksums_path.name],
         'private_material_findings': findings,
@@ -213,9 +247,11 @@ def build(output_dir: Path) -> dict[str, object]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description='Build Lumi Social Intelligence release artifacts.')
-    parser.add_argument('--output-dir', type=Path, default=ROOT / 'dist' / VERSION)
+    parser.add_argument('--version', default=DEFAULT_VERSION, choices=sorted(VERSION_REQUIRED_RELEASE_MEMBERS))
+    parser.add_argument('--output-dir', type=Path, default=None)
     args = parser.parse_args(argv)
-    report = build(args.output_dir)
+    output_dir = args.output_dir or ROOT / 'dist' / args.version
+    report = build(output_dir, version=args.version)
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
 

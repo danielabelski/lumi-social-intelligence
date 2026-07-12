@@ -1,7 +1,7 @@
 """Public-safe Live Surface natural-language controls.
 
 This module demonstrates how a host can parse ordinary user phrasing into
-small, reversible Live Surface controls while keeping personal-data surfaces,
+small, reversible Live Surface state while keeping personal-data surfaces,
 external sends, scheduler/config changes, and durable memory behind review
 gates. The legacy shadow helper returns local evidence only. The v0.4 public path
 returns real review-gated control cards that can be applied by a host API while

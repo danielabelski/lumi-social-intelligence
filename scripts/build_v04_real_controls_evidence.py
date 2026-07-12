@@ -63,7 +63,7 @@ def build_markdown(receipt: dict[str, Any]) -> str:
 **Mode:** `{receipt['mode']}`  
 **Public scope:** review-gated public capability.
 
-This evidence proves the public v0.4.0 Live Surface controls path as a real review-gated capability: semantic intent is parsed, a host-applyable review card is produced for safe session readiness, and absent personal-data surfaces fail closed.
+This evidence proves the public v0.4.0 Live Surface path as a real review-gated capability: semantic intent is parsed, a host-applyable review card is produced for safe session readiness, and absent personal-data surfaces fail closed.
 
 ## Safety counters
 

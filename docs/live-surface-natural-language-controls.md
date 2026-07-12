@@ -1,6 +1,6 @@
 # Live Surface natural-language controls
 
-Live Surface controls let a user steer warmed context with ordinary phrasing instead of magic commands. The public `v0.3` preview is intentionally **shadow-only**: it parses a request, returns a reviewable control state, and renders a tiny acknowledgement, but it does not mutate the host runtime or read personal integrations.
+Live Surface lets a user steer warmed context with ordinary phrasing instead of magic commands. The public `v0.3` preview is intentionally **shadow-only**: it parses a request, returns a reviewable control state, and renders a tiny acknowledgement, but it does not mutate the host runtime or read personal integrations.
 
 ## Principles
 

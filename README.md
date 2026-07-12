@@ -1,11 +1,11 @@
 # Lumi Social Intelligence
 
-**Memory, nuance, presence, and review-gated Live Surface controls for AI agents.**
+**Memory, nuance, presence, and review-gated Live Surface for AI agents.**
 
-Lumi Social Intelligence is the public-facing release doorway for three cooperating products plus the Live Surface control layer that lets a host agent keep safe context warm without turning every available tool into an automatic side effect:
+Lumi Social Intelligence is the public-facing release doorway for three cooperating products plus Live Surface, which lets a host agent keep safe context warm without turning every available tool into an automatic side effect:
 
 ```text
-Lumi Layered Memory -> Nuances -> Presence -> Live Surface controls
+Lumi Layered Memory -> Nuances -> Presence -> Live Surface
 ```
 
 It gives agent runtimes a governed reflection layer: adaptive memory, nuance, and presence with confidence scoring, contradiction handling, user approval, skill evaluation, review, consent, repair, and explicit control boundaries for live host surfaces.
@@ -65,7 +65,7 @@ Lumi Social Intelligence helps an assistant answer four questions before it does
 1. **What do I know?** — governed memory and continuity.
 2. **What does this moment mean?** — nuance, uncertainty, consent, and contradiction.
 3. **Should I speak, wait, ask, or repair?** — presence and restraint.
-4. **Is this context only warm, or is action approved?** — Live Surface controls.
+4. **Is this context only warm, or is action approved?** — Live Surface.
 
 The result is a safer path toward assistants that feel more socially aware without becoming unbounded, invasive, or weirdly overconfident.
 
@@ -76,7 +76,7 @@ The result is a safer path toward assistants that feel more socially aware witho
 | **Lumi Layered Memory** | Context and continuity | Useful continuity. Clean boundaries. Receipts. No silent rewrites. |
 | **Nuances** | Contextual appraisal | Notice lightly. Invite clearly. Repair quickly. Leave room. |
 | **Presence** | Governed initiative | Soft presence. Clean boundaries. Quick repair. No stealing the feeling. |
-| **Live Surface controls** | Review-gated host readiness | Warm safe context. Fail closed. Separate readiness from action. |
+| **Live Surface** | Review-gated host readiness | Warm safe context. Fail closed. Separate readiness from action. |
 
 ### Lumi Layered Memory
 
@@ -90,9 +90,9 @@ Nuances reads the moment around the memory: corrections, consent signals, tone, 
 
 Presence decides what the assistant should do with that understanding: speak, wait, ask, act, repair, or hold silence. Presence is where restraint becomes a feature, not a missing capability.
 
-### Live Surface controls
+### Live Surface
 
-Live Surface controls keep host capabilities legible and review-gated. They let a host say, for example, “keep this ready,” “only surface this if relevant,” or “add Calendar later,” while preserving hard boundaries around personal data, external sends, durable memory, scheduler changes, and runtime mutation.
+Live Surface keeps host capabilities legible and review-gated. It lets a host say, for example, “keep this ready,” “only surface this if relevant,” or “add Calendar later,” while preserving hard boundaries around personal data, external sends, durable memory, scheduler changes, and runtime mutation.
 
 ## Repository role
 

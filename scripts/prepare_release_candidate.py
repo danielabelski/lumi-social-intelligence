@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_NOTES = 'docs/releases/v0.4.0.md'
+DEFAULT_NOTES = 'docs/releases/v0.4.1.md'
 
 
 def _run(command: list[str]) -> str:
@@ -32,7 +32,17 @@ def _is_clean_status(status: str) -> bool:
 
 def _release_notes_summary(notes_path: Path) -> dict:
     text = notes_path.read_text(encoding='utf-8')
-    if notes_path.name == 'v0.4.0.md':
+    if notes_path.name == 'v0.4.1.md':
+        required = [
+            'Hermes native Telegram emoji reaction delivery',
+            'ReactionTypeEmoji',
+            'primitive emoji string',
+            'does not ship the private Hermes adapter',
+            'raw private Hermes runtime state',
+            'canonical_writes: 0',
+            'telegram_reactions_sent_by_public_repo: 0',
+        ]
+    elif notes_path.name == 'v0.4.0.md':
         required = [
             'real public release of review-gated Live Surface natural-language controls',
             'not a shadow-only release',
@@ -86,7 +96,7 @@ def _release_notes_summary(notes_path: Path) -> dict:
     }
 
 
-def build_plan(tag: str = 'v0.4.0', notes_path: str = DEFAULT_NOTES) -> dict:
+def build_plan(tag: str = 'v0.4.1', notes_path: str = DEFAULT_NOTES) -> dict:
     blockers: list[str] = []
     status = _run(['git', 'status', '--short', '--branch'])
     branch = _run(['git', 'rev-parse', '--abbrev-ref', 'HEAD']).strip()
@@ -143,7 +153,7 @@ def build_plan(tag: str = 'v0.4.0', notes_path: str = DEFAULT_NOTES) -> dict:
 
 def main(argv: list[str] | None = None) -> dict:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--tag', default='v0.4.0')
+    parser.add_argument('--tag', default='v0.4.1')
     parser.add_argument('--notes', default=DEFAULT_NOTES)
     parser.add_argument('--report', default='')
     args = parser.parse_args(argv)
