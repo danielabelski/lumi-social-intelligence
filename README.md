@@ -193,7 +193,7 @@ Every release must pass the local release gate:
 ## Find it
 
 - Repository: <https://github.com/markoaamunkajo/lumi-social-intelligence>
-- Latest release: <https://github.com/markoaamunkajo/lumi-social-intelligence/releases/tag/v0.4.0>
+- Latest release: <https://github.com/markoaamunkajo/lumi-social-intelligence/releases/tag/v0.4.2>
 
 ## License
 

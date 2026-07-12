@@ -28,7 +28,13 @@ jobs:
         run: ./scripts/release_check.sh
 
       - name: Build release artifacts
-        run: python3 scripts/build_release_artifacts.py --output-dir dist/release
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          case "$VERSION" in
+            [0-9]*.[0-9]*.[0-9]*) ;;
+            *) echo "unsupported release tag: $GITHUB_REF_NAME" >&2; exit 1 ;;
+          esac
+          python3 scripts/build_release_artifacts.py --version "$VERSION" --output-dir dist/release
 
       - name: Run clean-checkout smoke
         run: ./scripts/clean_checkout_smoke.sh
