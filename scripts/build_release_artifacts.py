@@ -28,6 +28,7 @@ from scripts.build_v04_real_controls_evidence import build_receipt as build_v04_
 from scripts.build_v041_native_reaction_evidence import build_receipt as build_v041_receipt
 from scripts.build_v042_care_release_evidence import build_receipt as build_v042_receipt
 from scripts.build_v043_live_surface_readiness_evidence import build_receipt as build_v043_receipt
+from scripts.build_v050_cache_fast_lane_evidence import build_receipt as build_v050_receipt
 
 DEFAULT_VERSION = '0.4.0'
 FORBIDDEN_MEMBER_PATTERNS = (
@@ -95,6 +96,13 @@ VERSION_REQUIRED_RELEASE_MEMBERS = {
         'docs/evidence/v0.4.3-live-surface-readiness-evidence.json',
         'docs/evidence/v0.4.3-live-surface-readiness-evidence.md',
         'scripts/build_v043_live_surface_readiness_evidence.py',
+        'lumi_social_intelligence/care_release.py',
+    ),
+    '0.5.0': (
+        'docs/releases/v0.5.0.md',
+        'docs/evidence/v0.5.0-cache-fast-lane-evidence.json',
+        'docs/evidence/v0.5.0-cache-fast-lane-evidence.md',
+        'scripts/build_v050_cache_fast_lane_evidence.py',
         'lumi_social_intelligence/care_release.py',
     ),
 }
@@ -194,12 +202,12 @@ def build(output_dir: Path, version: str = DEFAULT_VERSION) -> dict[str, object]
     if v04_real_controls_evidence['shadow_only'] is not False:
         raise SystemExit('v0.4 real controls evidence must not be shadow-only')
     native_telegram_reaction_evidence = None
-    if version in {'0.4.1', '0.4.2', '0.4.3'}:
+    if version in {'0.4.1', '0.4.2', '0.4.3', '0.5.0'}:
         native_telegram_reaction_evidence = build_v041_receipt()
         if native_telegram_reaction_evidence['status'] != 'verified':
             raise SystemExit('v0.4.1 native reaction evidence failed verification')
     care_release_evidence = None
-    if version in {'0.4.2', '0.4.3'}:
+    if version in {'0.4.2', '0.4.3', '0.5.0'}:
         care_release_evidence = build_v042_receipt()
         if care_release_evidence['status'] != 'verified':
             raise SystemExit('v0.4.2 care release evidence failed verification')
@@ -261,7 +269,7 @@ def build(output_dir: Path, version: str = DEFAULT_VERSION) -> dict[str, object]
             'side_effects': care_release_evidence['side_effects'],
         }
     live_surface_readiness_evidence = None
-    if version == '0.4.3':
+    if version in {'0.4.3', '0.5.0'}:
         live_surface_readiness_evidence = build_v043_receipt()
         if live_surface_readiness_evidence['status'] != 'verified':
             raise SystemExit('v0.4.3 Live Surface readiness evidence failed verification')
@@ -274,6 +282,19 @@ def build(output_dir: Path, version: str = DEFAULT_VERSION) -> dict[str, object]
             'verified_invariants': live_surface_readiness_evidence['verified_invariants'],
             'public_boundary': live_surface_readiness_evidence['public_boundary'],
             'side_effects': live_surface_readiness_evidence['side_effects'],
+        }
+    cache_fast_lane_evidence = None
+    if version == '0.5.0':
+        cache_fast_lane_evidence = build_v050_receipt()
+        if cache_fast_lane_evidence['status'] != 'verified':
+            raise SystemExit('v0.5.0 cache-backed fast-lane evidence failed verification')
+        manifest['cache_fast_lane_evidence'] = {
+            'status': cache_fast_lane_evidence['status'],
+            'release_principle': cache_fast_lane_evidence['release_principle'],
+            'fast_lane_contract': cache_fast_lane_evidence['fast_lane_contract'],
+            'verified_invariants': cache_fast_lane_evidence['verified_invariants'],
+            'public_boundary': cache_fast_lane_evidence['public_boundary'],
+            'side_effects': cache_fast_lane_evidence['side_effects'],
         }
     manifest_path = output_dir / 'release-manifest.json'
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')

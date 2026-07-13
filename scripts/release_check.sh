@@ -22,6 +22,7 @@ python3 scripts/build_v04_real_controls_evidence.py --evidence /tmp/lumi-v04-rea
 python3 scripts/build_v041_native_reaction_evidence.py --evidence /tmp/lumi-v041-native-reaction-evidence.json --markdown /tmp/lumi-v041-native-reaction-evidence.md >/tmp/lumi-v041-native-reaction-build.json
 python3 scripts/build_v042_care_release_evidence.py --evidence /tmp/lumi-v042-care-release-evidence.json --markdown /tmp/lumi-v042-care-release-evidence.md >/tmp/lumi-v042-care-release-build.json
 python3 scripts/build_v043_live_surface_readiness_evidence.py --evidence /tmp/lumi-v043-live-surface-readiness-evidence.json --markdown /tmp/lumi-v043-live-surface-readiness-evidence.md >/tmp/lumi-v043-live-surface-readiness-build.json
+python3 scripts/build_v050_cache_fast_lane_evidence.py --evidence /tmp/lumi-v050-cache-fast-lane-evidence.json --markdown /tmp/lumi-v050-cache-fast-lane-evidence.md >/tmp/lumi-v050-cache-fast-lane-build.json
 python3 scripts/public_readiness_audit.py --artifact-dir /tmp/lumi-public-readiness-artifacts --report /tmp/lumi-public-readiness-report.json
 ./scripts/clean_checkout_smoke.sh
 

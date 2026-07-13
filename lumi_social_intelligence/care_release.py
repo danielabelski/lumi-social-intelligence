@@ -12,6 +12,7 @@ from typing import Any
 
 VERSION = "0.4.2"
 VERSION_043 = "0.4.3"
+VERSION_050 = "0.5.0"
 
 SIDE_EFFECTS_ZERO = {
     "telegram_messages_sent_by_public_repo": 0,
@@ -178,6 +179,90 @@ def build_live_surface_autoresearch_readiness_plan(
             "readiness_is_not_permission": True,
             "permission_expansion_allowed": False,
             "durable_memory_write_allowed": False,
+            "runtime_promotion_allowed_by_public_repo": False,
+        },
+        "side_effects": dict(SIDE_EFFECTS_ZERO),
+    }
+
+
+def build_cache_backed_fast_lane_plan(
+    *,
+    now: str,
+    source: str,
+    context: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Build the public-safe v0.5.0 cache-backed fast-lane contract.
+
+    The public package deliberately receives only host-verified booleans and an
+    intent label. It never opens a cache, resolves a chat, sends a reply, or
+    invokes a network/tool path. A host may use the ready result only after it
+    has authorized the sender and validated a local, fresh cache entry.
+    """
+    ctx = dict(context or {})
+    direct_message = source == "telegram" and bool(ctx.get("is_direct_message"))
+    authorized = bool(ctx.get("authorized_sender"))
+    supported_intent = ctx.get("supported_intent") == "weather_or_scooter_departure"
+    cache_ready = bool(ctx.get("cache_fresh")) and bool(ctx.get("cache_valid"))
+
+    if not authorized:
+        status = "fallback_full_dispatch"
+        fallback_reason = "unauthorized_sender"
+        fallback_action = "normal_auth_or_pairing_flow"
+    elif not direct_message:
+        status = "fallback_full_dispatch"
+        fallback_reason = "unsupported_platform_or_non_direct_message"
+        fallback_action = "normal_full_dispatch"
+    elif not supported_intent:
+        status = "fallback_full_dispatch"
+        fallback_reason = "unsupported_or_missing_intent"
+        fallback_action = "normal_full_dispatch"
+    elif not cache_ready:
+        status = "fallback_full_dispatch"
+        fallback_reason = "missing_invalid_or_stale_cache"
+        fallback_action = "normal_full_dispatch"
+    else:
+        status = "ready_for_host_reply"
+        fallback_reason = None
+        fallback_action = None
+
+    return {
+        "schema": "lumi.v050.cache_backed_fast_lane.v1",
+        "version": VERSION_050,
+        "created_at": now,
+        "source": source,
+        "status": status,
+        "direct_reply_allowed": status == "ready_for_host_reply",
+        "eligibility": {
+            "authorized_sender_required": True,
+            "platform_scope": "telegram_direct_message",
+            "supported_intent_scope": "weather_or_scooter_departure",
+            "fresh_valid_cache_required": True,
+        },
+        "cache_contract": {
+            "cache_read_location": "host_local_state_only",
+            "network_io_allowed": False,
+            "max_age_seconds": 43200,
+            "raw_cache_content_exported": False,
+        },
+        "dispatch_contract": {
+            "authorization_precedes_direct_reply": True,
+            "agent_session_or_compression_allowed": False,
+            "agent_tool_calls_allowed": 0,
+            "reply_char_limit": 4096,
+            "normal_delivery_adapter_required": True,
+        },
+        "fallback_contract": {
+            "on_unauthorized_sender": "normal_auth_or_pairing_flow",
+            "on_unsupported_platform_or_non_direct_message": "normal_full_dispatch",
+            "on_unsupported_or_missing_intent": "normal_full_dispatch",
+            "on_missing_invalid_or_stale_cache": "normal_full_dispatch",
+        },
+        "fallback_reason": fallback_reason,
+        "fallback_action": fallback_action,
+        "review_gate": {
+            "host_authorization_required": True,
+            "private_identifiers_exported": False,
+            "private_cache_content_exported": False,
             "runtime_promotion_allowed_by_public_repo": False,
         },
         "side_effects": dict(SIDE_EFFECTS_ZERO),

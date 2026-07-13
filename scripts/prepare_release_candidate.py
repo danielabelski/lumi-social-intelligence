@@ -32,7 +32,18 @@ def _is_clean_status(status: str) -> bool:
 
 def _release_notes_summary(notes_path: Path) -> dict:
     text = notes_path.read_text(encoding='utf-8')
-    if notes_path.name == 'v0.4.3.md':
+    if notes_path.name == 'v0.5.0.md':
+        required = [
+            'cache-backed fast lane',
+            'private host adapter',
+            '12-hour cache freshness ceiling',
+            'authorization precedes direct reply',
+            'no network I/O',
+            'zero agent tool calls',
+            'canonical_writes: 0',
+            'private_runtime_reads_by_public_repo: 0',
+        ]
+    elif notes_path.name == 'v0.4.3.md':
         required = [
             'Live Surface readiness',
             'Gateway-start warmed context',
