@@ -30,7 +30,7 @@ That means **Lumi Social Intelligence** is not an auto-personality-rewriter. It 
 
 **v0.4.3** is a Live Surface readiness release for **Gateway-start warmed context**, **warm brief handoffs before simple checks**, and **no silent long waits**.
 
-Live Surface is the capability boundary between “the assistant has safe, warmed context” and “the assistant is allowed to act.” v0.4.3 tightens the startup and latency rule: Live Surface tools that belong on the surface must be ready after Gateway start, not lazily warmed on the first user need; simple familiar checks should get a tiny human acknowledgement before the tool path opens; and longer AutoResearch/tool paths must acknowledge the concrete next step before the user is left waiting.
+Live Surface is the capability boundary between “the assistant has safe, warmed context” and “the assistant is allowed to act.” v0.4.3 tightens the startup and latency rule: Live Surface tools that belong on the surface must be ready after Gateway start, not lazily warmed on the first user need; simple familiar checks should get a tiny written acknowledgement before the tool path opens; and longer AutoResearch/tool paths must acknowledge the concrete next step in text before the user is left waiting. Emoji reactions remain an instant zero-tool-call lane only; they are not acknowledgements for longer or expensive tool waits.
 
 ### What v0.4.3 offers
 
@@ -41,6 +41,7 @@ Live Surface is the capability boundary between “the assistant has safe, warme
   - readiness is not permission to surface or mutate
 - Pre-tool acknowledgement for simple familiar checks: warm, brief, human handoff before opening the machine room.
 - Pre-tool acknowledgement for longer AutoResearch/tool paths.
+- Explicit switch from emoji reaction to written text when the tool call is longer or expensive; reactions are not acknowledgements for expensive tool waits.
 - Review-gated boundaries for memory writes, permission expansion, and runtime promotion.
 - The v0.4.2 Next-Step Care contract remains available for instant/safe host actions.
 

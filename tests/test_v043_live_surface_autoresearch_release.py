@@ -26,15 +26,26 @@ def test_v043_autoresearch_acknowledges_before_longer_tool_path_and_stays_review
 
     ack = plan["pre_tool_acknowledgement"]["longer_tool_path"]
     assert ack["required_before_tool"] is True
+    assert ack["required_medium"] == "text_reply"
     assert "checking the small AutoResearch route" in ack["example"]
     assert "then I’ll give you" in ack["example"]
     assert ack["visible_latency_contract"] == "no_silent_long_wait"
+    assert ack["emoji_reaction_allowed"] is False
+    assert ack["emoji_reaction_is_not_acknowledgement"] is True
+    assert ack["switch_from_reaction_to_writing_when_tool_call_is_expensive"] is True
 
     simple_ack = plan["pre_tool_acknowledgement"]["simple_familiar_check"]
     assert simple_ack["required_before_tool"] is True
     assert simple_ack["example"] == "Sure, let’s check."
     assert simple_ack["tone"] == "warm_brief_human_handoff"
+    assert simple_ack["emoji_reaction_allowed"] is False
     assert "over_explaining" in simple_ack["avoid"]
+
+    emoji_policy = plan["emoji_reaction_policy"]
+    assert emoji_policy["instant_reaction_intent_only"] is True
+    assert emoji_policy["allowed_when_agent_tool_calls_allowed"] == 0
+    assert emoji_policy["for_longer_or_expensive_tool_paths"] == "write_a_brief_text_acknowledgement_instead"
+    assert emoji_policy["must_not_mask_tool_latency"] is True
 
     gate = plan["review_gate"]
     assert gate["readiness_is_not_permission"] is True

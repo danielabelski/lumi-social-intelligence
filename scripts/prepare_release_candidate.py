@@ -32,7 +32,19 @@ def _is_clean_status(status: str) -> bool:
 
 def _release_notes_summary(notes_path: Path) -> dict:
     text = notes_path.read_text(encoding='utf-8')
-    if notes_path.name == 'v0.4.1.md':
+    if notes_path.name == 'v0.4.3.md':
+        required = [
+            'Live Surface readiness',
+            'Gateway-start warmed context',
+            'written pre-tool acknowledgement',
+            'no silent expensive tool waits',
+            'required_medium: text_reply',
+            'emoji_reaction_is_not_acknowledgement: true',
+            'switch_from_reaction_to_writing_when_tool_call_is_expensive: true',
+            'canonical_writes: 0',
+            'telegram_reactions_sent_by_public_repo: 0',
+        ]
+    elif notes_path.name == 'v0.4.1.md':
         required = [
             'Hermes native Telegram emoji reaction delivery',
             'ReactionTypeEmoji',

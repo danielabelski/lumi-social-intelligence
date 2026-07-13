@@ -1,0 +1,116 @@
+{
+  "claim_boundary": "Public-safe readiness contract/evidence; no public repo Telegram sends, reactions, private runtime reads, or runtime promotion",
+  "emoji_reaction_policy": {
+    "allowed_lane": "instant_control_plane",
+    "allowed_when_agent_tool_calls_allowed": 0,
+    "for_longer_or_expensive_tool_paths": "write_a_brief_text_acknowledgement_instead",
+    "instant_reaction_intent_only": true,
+    "must_not_mask_tool_latency": true
+  },
+  "gateway_startup_contract": {
+    "autoresearch_small_investigation_ready": true,
+    "contract": "all_live_surface_tools_ready_after_gateway_start",
+    "first_user_need_warmup_allowed": false,
+    "startup_phase": "gateway_start"
+  },
+  "not_claimed": [
+    "The public repository sends Telegram messages or reactions itself",
+    "The public repository promotes Live Surface tools in a private Hermes runtime",
+    "Emoji reactions are acceptable acknowledgements for longer or expensive tool calls",
+    "First-use warmup in the user path is acceptable for Live Surface tools"
+  ],
+  "pre_tool_acknowledgement_contract": {
+    "longer_tool_path": {
+      "emoji_reaction_allowed": false,
+      "emoji_reaction_is_not_acknowledgement": true,
+      "example": "I\u2019m checking the small AutoResearch route now, then I\u2019ll give you the concrete next step \u2014 no silent long wait.",
+      "required_before_tool": true,
+      "required_medium": "text_reply",
+      "switch_from_reaction_to_writing_when_tool_call_is_expensive": true,
+      "visible_latency_contract": "no_silent_long_wait"
+    },
+    "simple_familiar_check": {
+      "avoid": "over_explaining_read_only_or_bounded_mechanics_unless_safety_or_scope_needs_it",
+      "emoji_reaction_allowed": false,
+      "example": "Sure, let\u2019s check.",
+      "required_before_tool": true,
+      "tone": "warm_brief_human_handoff"
+    }
+  },
+  "public_boundary": {
+    "includes_public_safe_contract": true,
+    "promotes_runtime_surface": false,
+    "raw_private_runtime_state": false,
+    "sends_telegram_messages": false,
+    "sends_telegram_reactions": false,
+    "ships_private_hermes_adapter": false
+  },
+  "readiness_plan": {
+    "created_at": "2026-07-12T09:00:00+07:00",
+    "emoji_reaction_policy": {
+      "allowed_lane": "instant_control_plane",
+      "allowed_when_agent_tool_calls_allowed": 0,
+      "for_longer_or_expensive_tool_paths": "write_a_brief_text_acknowledgement_instead",
+      "instant_reaction_intent_only": true,
+      "must_not_mask_tool_latency": true
+    },
+    "gateway_startup_readiness": {
+      "autoresearch_small_investigation_ready": true,
+      "contract": "all_live_surface_tools_ready_after_gateway_start",
+      "first_user_need_warmup_allowed": false,
+      "startup_phase": "gateway_start"
+    },
+    "pre_tool_acknowledgement": {
+      "longer_tool_path": {
+        "emoji_reaction_allowed": false,
+        "emoji_reaction_is_not_acknowledgement": true,
+        "example": "I\u2019m checking the small AutoResearch route now, then I\u2019ll give you the concrete next step \u2014 no silent long wait.",
+        "required_before_tool": true,
+        "required_medium": "text_reply",
+        "switch_from_reaction_to_writing_when_tool_call_is_expensive": true,
+        "visible_latency_contract": "no_silent_long_wait"
+      },
+      "simple_familiar_check": {
+        "avoid": "over_explaining_read_only_or_bounded_mechanics_unless_safety_or_scope_needs_it",
+        "emoji_reaction_allowed": false,
+        "example": "Sure, let\u2019s check.",
+        "required_before_tool": true,
+        "tone": "warm_brief_human_handoff"
+      }
+    },
+    "review_gate": {
+      "durable_memory_write_allowed": false,
+      "permission_expansion_allowed": false,
+      "readiness_is_not_permission": true,
+      "runtime_promotion_allowed_by_public_repo": false
+    },
+    "schema": "lumi.v043.live_surface_autoresearch_readiness.v1",
+    "side_effects": {
+      "private_runtime_reads_by_public_repo": 0,
+      "runtime_mutations_by_public_repo": 0,
+      "telegram_messages_sent_by_public_repo": 0,
+      "telegram_reactions_sent_by_public_repo": 0
+    },
+    "source": "public_release_evidence",
+    "status": "ready",
+    "version": "0.4.3"
+  },
+  "release_principle": "Live Surface must be ready before user need and write before visible expensive tool waits",
+  "schema": "lumi.v043.live_surface_readiness_evidence.v1",
+  "side_effects": {
+    "private_runtime_reads_by_public_repo": 0,
+    "runtime_mutations_by_public_repo": 0,
+    "telegram_messages_sent_by_public_repo": 0,
+    "telegram_reactions_sent_by_public_repo": 0
+  },
+  "status": "verified",
+  "verified_invariants": {
+    "emoji_reaction_not_acknowledgement": true,
+    "expensive_tool_path_switches_to_writing": true,
+    "first_user_need_warmup_allowed": false,
+    "longer_tool_path_ack_medium": "text_reply",
+    "longer_tool_path_ack_required": true,
+    "reactions_only_for_instant_zero_tool_call_lane": true
+  },
+  "version": "0.4.3"
+}

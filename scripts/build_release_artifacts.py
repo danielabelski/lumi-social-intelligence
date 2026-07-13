@@ -27,6 +27,7 @@ from scripts.verify_v02_demo_package import verify as verify_v02_demo_package
 from scripts.build_v04_real_controls_evidence import build_receipt as build_v04_receipt
 from scripts.build_v041_native_reaction_evidence import build_receipt as build_v041_receipt
 from scripts.build_v042_care_release_evidence import build_receipt as build_v042_receipt
+from scripts.build_v043_live_surface_readiness_evidence import build_receipt as build_v043_receipt
 
 DEFAULT_VERSION = '0.4.0'
 FORBIDDEN_MEMBER_PATTERNS = (
@@ -87,6 +88,13 @@ VERSION_REQUIRED_RELEASE_MEMBERS = {
         'docs/evidence/v0.4.2-care-release-evidence.json',
         'docs/evidence/v0.4.2-care-release-evidence.md',
         'scripts/build_v042_care_release_evidence.py',
+        'lumi_social_intelligence/care_release.py',
+    ),
+    '0.4.3': (
+        'docs/releases/v0.4.3.md',
+        'docs/evidence/v0.4.3-live-surface-readiness-evidence.json',
+        'docs/evidence/v0.4.3-live-surface-readiness-evidence.md',
+        'scripts/build_v043_live_surface_readiness_evidence.py',
         'lumi_social_intelligence/care_release.py',
     ),
 }
@@ -186,12 +194,12 @@ def build(output_dir: Path, version: str = DEFAULT_VERSION) -> dict[str, object]
     if v04_real_controls_evidence['shadow_only'] is not False:
         raise SystemExit('v0.4 real controls evidence must not be shadow-only')
     native_telegram_reaction_evidence = None
-    if version in {'0.4.1', '0.4.2'}:
+    if version in {'0.4.1', '0.4.2', '0.4.3'}:
         native_telegram_reaction_evidence = build_v041_receipt()
         if native_telegram_reaction_evidence['status'] != 'verified':
             raise SystemExit('v0.4.1 native reaction evidence failed verification')
     care_release_evidence = None
-    if version == '0.4.2':
+    if version in {'0.4.2', '0.4.3'}:
         care_release_evidence = build_v042_receipt()
         if care_release_evidence['status'] != 'verified':
             raise SystemExit('v0.4.2 care release evidence failed verification')
@@ -251,6 +259,21 @@ def build(output_dir: Path, version: str = DEFAULT_VERSION) -> dict[str, object]
             'next_step_care_contract': care_release_evidence['next_step_care_contract'],
             'public_boundary': care_release_evidence['public_boundary'],
             'side_effects': care_release_evidence['side_effects'],
+        }
+    live_surface_readiness_evidence = None
+    if version == '0.4.3':
+        live_surface_readiness_evidence = build_v043_receipt()
+        if live_surface_readiness_evidence['status'] != 'verified':
+            raise SystemExit('v0.4.3 Live Surface readiness evidence failed verification')
+        manifest['live_surface_readiness_evidence'] = {
+            'status': live_surface_readiness_evidence['status'],
+            'release_principle': live_surface_readiness_evidence['release_principle'],
+            'gateway_startup_contract': live_surface_readiness_evidence['gateway_startup_contract'],
+            'pre_tool_acknowledgement_contract': live_surface_readiness_evidence['pre_tool_acknowledgement_contract'],
+            'emoji_reaction_policy': live_surface_readiness_evidence['emoji_reaction_policy'],
+            'verified_invariants': live_surface_readiness_evidence['verified_invariants'],
+            'public_boundary': live_surface_readiness_evidence['public_boundary'],
+            'side_effects': live_surface_readiness_evidence['side_effects'],
         }
     manifest_path = output_dir / 'release-manifest.json'
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')
