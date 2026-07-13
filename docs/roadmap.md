@@ -45,27 +45,6 @@ Private repo passes release gate
 
 The release doorway should contain only reviewed, public-safe files. It must not include raw runs, private memories, diaries, local runtime state, scheduler internals, credentials, chat IDs, private coordinates, or unverified host claims.
 
-## Current alignment — Live Surface for private/internal workbenches
-
-**Status:** Complete for the public contract layer.
-
-**Goal:** Keep **Lumi Social Intelligence** aligned with private/internal intelligence workbenches without turning the public repository into a leak of confidential assumptions, raw research, or local pack internals.
-
-### Deliverables
-
-- [x] Add public Live Surface workbench alignment for `Draft · Research · Review · Export · Help`.
-- [x] Keep private/internal workbench assumptions out of the public release doorway.
-- [x] Preserve review-gated export framing: evidence, insight, company truth, and public claim remain separate.
-- [x] Document that public Lumi defines the surface contract while host runtimes and private workbenches implement it behind their own privacy boundaries.
-
-### Exit criteria
-
-- Public docs explain the governed surface modes without exposing engine-room implementation terms to normal users.
-- Public examples remain synthetic, reviewed, fail-closed, and explicit about unsupported claims.
-- Raw research, source ledgers, customer/support material, local pack internals, credentials, scheduler state, chat IDs, and private runtime state remain outside this repository.
-
-See [Live Surface workbench alignment](live-surface-workbench-alignment.md).
-
 ## Pre-sprint — NotebookLM article foundation
 
 **Status:** Complete.

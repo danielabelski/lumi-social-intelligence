@@ -19,16 +19,6 @@ Versioned releases are promoted into:
 
 Promotion should happen only when the update is tested, documented, reviewed, and safe for public-facing distribution.
 
-## Public Live Surface workbench alignment
-
-The public Live Surface contract uses five calm user-facing modes:
-
-```text
-Draft · Research · Review · Export · Help
-```
-
-These modes are allowed in public documentation because they describe review-gated user behavior. No confidential workbench workflows, local pack internals, private source ledgers, or raw evidence should be promoted here.
-
 ## Product naming rule
 
 Public-facing documentation should refer to the product components by their product names:
@@ -44,9 +34,6 @@ Avoid reducing the public story to internal folder names, module nicknames, or p
 This repository must not contain:
 
 - raw Autoresearch runs;
-- confidential internal workbench workflows;
-- local pack internals from private workspaces;
-- private source ledgers or raw evidence;
 - private memories or diaries;
 - chat logs;
 - credentials, tokens, API keys, passwords, connection strings, or chat IDs;

@@ -46,18 +46,6 @@ Live Surface is the capability boundary between “the assistant has safe, warme
 - Review-gated boundaries for memory writes, permission expansion, and runtime promotion.
 - The v0.4.2 Next-Step Care contract remains available for instant/safe host actions.
 
-## Current product form: public Live Surface for private workbenches
-
-The current direction keeps **Lumi Social Intelligence** as the public, governed Live Surface contract for private/internal intelligence workbenches. The surface language is intentionally simple:
-
-```text
-Draft · Research · Review · Export · Help
-```
-
-Public Lumi documents the surface contract; private workbenches keep their source material, pack internals, and raw evidence behind their own review gates.
-
-See [Live Surface workbench alignment](docs/live-surface-workbench-alignment.md).
-
 ## Previous release: v0.4.2
 
 **v0.4.2** is a care release for **Live Surface instant reactions** and **Next-Step Care**.
@@ -191,7 +179,6 @@ tests/
 This repository must never include:
 
 - raw Autoresearch runs;
-- confidential workbench workflows, local pack internals, private source ledgers, or raw evidence;
 - private memories, diaries, chat logs, or personal coordinates;
 - credentials, tokens, API keys, passwords, connection strings, or chat IDs;
 - local runtime state, scheduler internals, cron/job queues, or wrappers;
@@ -220,7 +207,6 @@ Every release must pass the local release gate:
 - [v0.2 Demo Index](docs/demos/v0.2-demo-index.md)
 - [v0.2 Demo Evidence Path](docs/demos/README.md)
 - [Live Surface natural-language controls](docs/live-surface-natural-language-controls.md)
-- [Live Surface workbench alignment](docs/live-surface-workbench-alignment.md)
 - [v0.4.0 release notes](docs/releases/v0.4.0.md)
 - [v0.4.0 release evidence](docs/evidence/v0.4.0-real-controls-evidence.md)
 - [v0.4.3 release notes](docs/releases/v0.4.3.md)
