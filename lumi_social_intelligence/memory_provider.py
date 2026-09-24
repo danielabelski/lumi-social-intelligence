@@ -16,6 +16,47 @@ class CompatibilityPacketError(ValueError):
     """Raised when provider context cannot safely enter the Lumi path."""
 
 
+class CompatibilityPacketSchemaError(CompatibilityPacketError):
+    """Raised when a packet violates the frozen compatibility-packet contract."""
+
+
+# The frozen v1 contract. ``build_compatibility_packet`` must produce exactly these keys with
+# exactly these value types; ``validate_compatibility_packet`` enforces that. Keeping the key
+# sets here — one named place — is what makes the ``v1`` schema id a checkable promise rather
+# than a label. Adding a key to the packet means adding it here and bumping ``v1``.
+COMPATIBILITY_PACKET_SCHEMA = 'lumi.memory_provider.compatibility_packet.v1'
+
+COMPATIBILITY_PACKET_KEYS = frozenset({
+    'schema',
+    'source',
+    'compatibility_view',
+    'requested_effect',
+    'write_mode',
+})
+
+COMPATIBILITY_PACKET_SOURCE_KEYS = frozenset({
+    'provider',
+    'source_id',
+    'timestamp',
+    'confidence',
+})
+
+COMPATIBILITY_PACKET_PROVENANCE_KEYS = frozenset({
+    'provider',
+    'source_id',
+    'timestamp',
+    'confidence',
+})
+
+COMPATIBILITY_PACKET_VIEW_KEYS = frozenset({
+    'normalized_summary',
+    'provenance',
+    'ambiguity',
+    'conflicts',
+    'merged_fact',
+})
+
+
 @dataclass(frozen=True)
 class _SourceContext:
     provider: str
@@ -64,6 +105,102 @@ def build_compatibility_packet(source: dict[str, Any]) -> dict[str, Any]:
         'requested_effect': context.requested_effect,
         'write_mode': context.write_mode,
     }
+
+
+def validate_compatibility_packet(payload: Any) -> dict[str, Any]:
+    """Enforce the frozen v1 compatibility-packet contract on ``payload``.
+
+    Raises :class:`CompatibilityPacketSchemaError` on a missing key, an unknown/extra key, a
+    wrong-typed value, or a schema id that is not the frozen ``v1`` one. Returns the payload
+    unchanged on success so callers may chain it.
+
+    This is for tests and explicit callers. It is deliberately **not** called from the live
+    turn path: a validation failure there could break a real turn, which is not a risk worth
+    the safety it would buy. Validation is opt-in.
+    """
+
+    if not isinstance(payload, dict):
+        raise CompatibilityPacketSchemaError(
+            f'compatibility packet must be a mapping, got {type(payload).__name__}'
+        )
+
+    _require_key_set('packet', payload, COMPATIBILITY_PACKET_KEYS)
+
+    schema = payload['schema']
+    _require_type('schema', schema, str)
+    if schema != COMPATIBILITY_PACKET_SCHEMA:
+        raise CompatibilityPacketSchemaError(
+            f"schema must be {COMPATIBILITY_PACKET_SCHEMA!r}, got {schema!r}"
+        )
+
+    source = payload['source']
+    _require_type('source', source, dict)
+    _require_key_set('source', source, COMPATIBILITY_PACKET_SOURCE_KEYS)
+    _require_type('source.provider', source['provider'], str)
+    _require_type('source.source_id', source['source_id'], str)
+    _require_optional_type('source.timestamp', source['timestamp'], str)
+    _require_type('source.confidence', source['confidence'], (int, float))
+
+    view = payload['compatibility_view']
+    _require_type('compatibility_view', view, dict)
+    _require_key_set('compatibility_view', view, COMPATIBILITY_PACKET_VIEW_KEYS)
+    _require_type('compatibility_view.normalized_summary', view['normalized_summary'], str)
+    _require_type('compatibility_view.ambiguity', view['ambiguity'], str)
+    _require_type('compatibility_view.conflicts', view['conflicts'], list)
+
+    provenance = view['provenance']
+    _require_type('compatibility_view.provenance', provenance, dict)
+    _require_key_set(
+        'compatibility_view.provenance',
+        provenance,
+        COMPATIBILITY_PACKET_PROVENANCE_KEYS,
+    )
+    _require_type('compatibility_view.provenance.provider', provenance['provider'], str)
+    _require_type('compatibility_view.provenance.source_id', provenance['source_id'], str)
+    _require_optional_type('compatibility_view.provenance.timestamp', provenance['timestamp'], str)
+    _require_type(
+        'compatibility_view.provenance.confidence',
+        provenance['confidence'],
+        (int, float),
+    )
+
+    _require_optional_type('requested_effect', payload['requested_effect'], str)
+    _require_type('write_mode', payload['write_mode'], str)
+
+    return payload
+
+
+def _require_key_set(name: str, mapping: dict[str, Any], expected: frozenset[str]) -> None:
+    actual = set(mapping)
+    missing = expected - actual
+    if missing:
+        raise CompatibilityPacketSchemaError(
+            f'{name} is missing required key(s): {sorted(missing)}'
+        )
+    extra = actual - expected
+    if extra:
+        raise CompatibilityPacketSchemaError(
+            f'{name} has unknown key(s): {sorted(extra)}'
+        )
+
+
+def _require_type(name: str, value: Any, expected: type | tuple[type, ...]) -> None:
+    if not isinstance(value, expected):
+        raise CompatibilityPacketSchemaError(
+            f'{name} must be {_type_name(expected)}, got {type(value).__name__}'
+        )
+
+
+def _require_optional_type(name: str, value: Any, expected: type | tuple[type, ...]) -> None:
+    if value is None:
+        return
+    _require_type(name, value, expected)
+
+
+def _type_name(expected: type | tuple[type, ...]) -> str:
+    if isinstance(expected, tuple):
+        return ' or '.join(item.__name__ for item in expected)
+    return expected.__name__
 
 
 def decide_presence_from_packet(packet: dict[str, Any]) -> dict[str, Any]:
